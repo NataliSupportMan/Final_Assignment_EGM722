@@ -2,7 +2,7 @@
 
 This is where you start
 
-## OvervieW 
+## Overview 
 
 The following code will provide various information about Crete island such as attribute tables, calculations, and map visualization 
 
