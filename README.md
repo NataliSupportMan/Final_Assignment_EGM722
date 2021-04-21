@@ -8,11 +8,11 @@ The following code will provide various information about Crete island such as a
 
 in features
 
-    * Object oriented
-    * Geopandas DataFrame, Pandas, Cartopy, Matplotlib, Contextily
-    * Functions, Methods, Objects
-    * Polygons, Lines, Points, transformation and map projection 
-    * Vector data analysis and Geopandas capabilities with shapefiles 
+*   Object oriented
+*   Geopandas DataFrame, Pandas, Cartopy, Matplotlib, Contextily
+*   Functions, Methods, Objects
+*   Polygons, Lines, Points, transformation and map projection 
+*   Vector data analysis and Geopandas capabilities with shapefiles 
 
 Documentations can be found:
 
