@@ -2,25 +2,25 @@
 
 This is where you start
 
-## Overview 
+## OvervieW 
 
 The following code will provide various information about Crete island such as attribute tables, calculations, and map visualization 
 
 in features
 
-..* Object oriented
-..* GeopandasDataFrame, Pandas, Cartopy, Matplotlib, Contextily
-..* Functions, Methods, Objects and definitions
-..* Polygons, Lines, Points transformation and map projection 
-..* Vector data analysis and Geopandas capabilities with shapefiles 
+    * Object oriented
+    * GeopandasDataFrame, Pandas, Cartopy, Matplotlib, Contextily
+    * Functions, Methods, Objects and definitions
+    * Polygons, Lines, Points transformation and map projection 
+    * Vector data analysis and Geopandas capabilities with shapefiles 
 
 Documentations can be found:
 
-    Geopandas  [click here](https://geopandas.org/docs.html)
-    Pandas     [click here](https://pandas.pydata.org/docs/)
-    Cartopy    [click here](https://scitools.org.uk/cartopy/docs/latest/)
-    Matplotlib [click here](https://matplotlib.org/stable/contents.html#)
-    Contextily [click here](https://contextily.readthedocs.io/en/latest/intro_guide.html)
+*   Geopandas  [click here](https://geopandas.org/docs.html)
+*   Pandas     [click here](https://pandas.pydata.org/docs/)
+*   Cartopy    [click here](https://scitools.org.uk/cartopy/docs/latest/)
+*   Matplotlib [click here](https://matplotlib.org/stable/contents.html#)
+*   Contextily [click here](https://contextily.readthedocs.io/en/latest/intro_guide.html)
 
 ## 1. installations
 
