@@ -22,9 +22,9 @@ Documentations can be found:
 *   Matplotlib [click here](https://matplotlib.org/stable/contents.html#)
 *   Contextily [click here](https://contextily.readthedocs.io/en/latest/intro_guide.html)
 
-## 1. installations
+## 1. Installations
 
-For the python code the pycharm IDE recommended and can be found [here](https://geopandas.org/docs.html)
+For the python code, the pycharm IDE recommended and can be found [here](https://geopandas.org/docs.html)
 
 In order to set the environment.yml provided above you need to download the 'Conda' on your local computer. First [click here](https://docs.anaconda.com/anaconda/install/) to download the anaconda and while you have done the installation open 'anaconda navigator' and in the left side screen click 'Environments'. On the bottom-left of your screen click the 'import' and add a 'Name:' and 'Specification File' the environment.yml provided and click import. While is done more than 160 packages should be added to your ennvironment 
 
