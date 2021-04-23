@@ -139,6 +139,7 @@ provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will
                                'N. LASITHIOU': 'Lasithi',
                                'N. RETHYMNOU': 'Rethymno',
                                })
+
 #print(provinces.describe())  # describe method will return basic statistical of a data frame series
 #print(provinces.count())    # Returns an integer number of the values that appeared in the list
 #print(provinces)           # Will print on console the attribute table of provinces file
@@ -177,16 +178,16 @@ intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how
 
 
 # Union and Centroid
-union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
-union['common'] = 1
-dissolve = union.dissolve(by='common')
-centroid = union['geometry'].centroid #
-fig1, ax1 = plt.subplots() #
-centroid.plot(ax=ax1, color='none', edgecolor='k') #
-dissolve.plot(ax=ax1, color='none', edgecolor='k')
-union.plot(color='none', edgecolor='k')
-plt.show()
-print(centroid)
+#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
+#union['common'] = 1
+#dissolve = union.dissolve(by='common')
+#centroid = union['geometry'].centroid #
+#fig1, ax1 = plt.subplots() #
+#centroid.plot(ax=ax1, color='none', edgecolor='k') #
+#dissolve.plot(ax=ax1, color='none', edgecolor='k')
+#union.plot(color='none', edgecolor='k')
+#plt.show()
+#print(centroid)
 
 
 # Buffer
@@ -232,11 +233,11 @@ airports = airports.replace({'Iraklion Airport':
                              'Iraklion airport'})
 
 airports_upper = airports['name'].apply(capitalize_name)
-airports_sum = list(airports.name.apply(unique_name))
+airports_sum = airports.name.apply(unique_name)
 filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
-#print(airports_sum)
+print(airports_sum)
 
 
 # The drop method will remove declared columns from the attribute table
