@@ -145,7 +145,6 @@ provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will
 
 
 # filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
-# So the results is 0 Iraklion and 2 lasithi as we got only 4 provinces in our attribute table
 filt = (provinces['name'] == 'Rethymno') | (provinces['name'] == 'Chania')
 provinces_filt = provinces.loc[~ filt, 'name']
 #print(provinces_filt)
@@ -161,10 +160,11 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 #states.plot(cmap="hsv")
 #plt.show()
 
+
 # Group by method
 # Join method
 provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
-join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join two layers
+join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
 #print(join_pro_sta)
 
 
@@ -174,6 +174,7 @@ intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how
 #print(intersection)
 #intersection.plot(cmap='hsv', edgecolor='k')
 #plt.show()
+
 
 # Union
 #union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
@@ -195,8 +196,6 @@ intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how
 #dissolve.plot()
 #buffer.plot(edgecolor='black')
 #centroid.plot(ax=ax1, color='none', edgecolor='k') #
-
-
 
 
 # Calculate the the max area, min area and the mean of boundaries layer
