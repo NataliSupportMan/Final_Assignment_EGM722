@@ -107,14 +107,14 @@ def unique_name(name):
 
 
 # Reading the Vector shapefiles with Geopandas dataframe.
-provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\provinces\provinces.shp')
-states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\states\states.shp')
-outline = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\outline\outline.shp')
-cities = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\cities\cities.shp')
-airports = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\airports\airports.shp')
-rivers = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\rivers\rivers.shp')
-roads = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\roads\roads.shp')
-refuges = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\wildlife_refuges\wildlife_refuges.shp')
+provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\provinces\provinces.shp')
+states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\states\states.shp')
+outline = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\outline\outline.shp')
+cities = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\cities\cities.shp')
+airports = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\airports\airports.shp')
+rivers = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\rivers\rivers.shp')
+roads = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\roads\roads.shp')
+refuges = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\refuges\refuges.shp')
 
 
 # Transform each shapefile to correct epsg. For Greece coordinate reference system the CRS is 'epsg=32635'
@@ -169,22 +169,26 @@ join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join
 # Spatial Geo-processes
 # Intersection
 #intersection = gpd.overlay(provinces, states, how='intersection') # intersects the  two layers
+
 # Union
 #union = gpd.overlay(provinces, states, how='union') # union two layers and dissolve to one layer
 #union['common'] = 1
 #dissolve = union.dissolve(by='common')
+
 # Buffer
 #buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
+
 # Centroid
 #centroid = union['geometry'].centroid #
 #fig1, ax1 = plt.subplots() #
-#union.plot(ax=ax1, color='b', edgecolor='k') #
-#centroid.plot(ax=ax1, color='none', edgecolor='k') #
+
+
 # Plots
 #intersection.plot()
-#union.plot(edgecolor='black')
+#union.plot(ax=ax1, color='b', edgecolor='k') #
 #dissolve.plot()
 #buffer.plot(edgecolor='black')
+#centroid.plot(ax=ax1, color='none', edgecolor='k') #
 #plt.show()
 #print(join)
 
@@ -201,7 +205,7 @@ mean_area = states['area_km2'].mean()
 
 
 # cities layer, using the drop method to remove columns as they containing information in greek language.
-cities = cities.drop(columns=['fid', 'ONOMA'])
+#cities = cities.drop(columns=['fid', 'ONOMA'])
 # Set the capital NAME to lower case
 cities.rename(columns={'NAME': 'name'},  inplace=True)
 # Using the replace method to replace the names of cities and setting
@@ -215,7 +219,7 @@ cities = cities.replace({'Hrakleio': 'Iraklion',
 #cities.loc[1, 'name'] = 'agios nikolaos'
 #cities.loc[2, 'name'] = 'rethymno'
 #cities.loc[3, 'name'] = 'chania'
-#print(cities)
+print(cities)
 
 #for index, row in cities.iterrows():
 #   print(index, row['name'])
