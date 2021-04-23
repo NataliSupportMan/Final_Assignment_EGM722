@@ -94,7 +94,7 @@ def unique_name(name):
 
     Args:
         name
-        return the unique values of the name column in attribute table
+        return the unique values of the 'name' column in attribute table
 
     """
     unique = []
@@ -106,7 +106,7 @@ def unique_name(name):
     return unique
 
 
-# Reading the Vector shapefiles and adding the paths of each individual shapefile.
+# Reading the Vector shapefiles with Geopandas dataframe.
 provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\provinces\provinces.shp')
 states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\states\states.shp')
 outline = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\final_assignment\data\outline\outline.shp')
@@ -129,19 +129,20 @@ refuges = refuges.to_crs(epsg=32635)
 
 
 # Provinces multipolygon layer
-provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center'])  # Drop method will drop off the no needed columns from attribute table
+provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center']) # Drop method will drop off the no needed columns from attribute table
 provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
 provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
 provinces = provinces[['name', 'area_km2', 'population', 'geometry']]  # Add the columns in order
 provinces['population'] = provinces.population / 1000   # Add the population column
-provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion', # Replace method will replace the rows of 'name' column
+provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will replace the rows of 'name' column
                                'N. CHANION': 'Chania',
                                'N. LASITHIOU': 'Lasithi',
                                'N. RETHYMNOU': 'Rethymno',
                                })
-#print(provinces)
-#print(provinces.describe())
-#print(provinces.count())
+#print(provinces.describe())  # describe method will return basic statistical of a data frame series
+#print(provinces.count())    # Returns an integer number of the values that appeared in the list
+#print(provinces)           # Will print on console the attribute table of provinces file
+
 
 # filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
 # So the results is 0 Iraklion and 2 lasithi as we got only 4 provinces in our attribute table
@@ -155,13 +156,13 @@ states = states.drop(columns=['KWD_YPES']) # The drop method will remove declare
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation type 'name', 'area_km2', 'geometry'
 states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the element's appearance of the attribute table
-#print(states.describe())
+#print(states.describe())  # describe method will return basic statistical of a data frame series
 #print(states)
 
 
 # Group by method
 # Join method
-provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby function will split and group the data based the arguments and summarize the data
+provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
 join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join two layers
 
 
@@ -411,7 +412,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 
 
 
-plt.show()
+#plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
