@@ -171,9 +171,9 @@ join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join
 # Spatial Geo-processes
 # Intersection
 intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection') # intersects the province 'Chania' with state
-print(intersection)
-intersection.plot(cmap='hsv', edgecolor='k')
-plt.show()
+#print(intersection)
+#intersection.plot(cmap='hsv', edgecolor='k')
+#plt.show()
 
 # Union
 #union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
