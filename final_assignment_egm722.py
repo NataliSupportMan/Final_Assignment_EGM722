@@ -170,32 +170,29 @@ join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join
 
 # Spatial Geo-processes
 # Intersection
-intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection') # intersects the province 'Chania' with state
+intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection') # intersects the provinces 'Chania' with states
 #print(intersection)
 #intersection.plot(cmap='hsv', edgecolor='k')
 #plt.show()
 
 
-# Union
-#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
-#union['common'] = 1
-#dissolve = union.dissolve(by='common')
+# Union and Centroid
+union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
+union['common'] = 1
+dissolve = union.dissolve(by='common')
+centroid = union['geometry'].centroid #
+fig1, ax1 = plt.subplots() #
+centroid.plot(ax=ax1, color='none', edgecolor='k') #
+dissolve.plot(ax=ax1, color='none', edgecolor='k')
+union.plot(color='none', edgecolor='k')
+plt.show()
+print(centroid)
 
 
 # Buffer
 #buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
-
-
-# Centroid
-#centroid = union['geometry'].centroid #
-#fig1, ax1 = plt.subplots() #
-
-
-# Plot the above layers for quick visualization. uncomment and comment back after visualization for less clustering
-#union.plot(ax=ax1, color='b', edgecolor='k') #
-#dissolve.plot()
 #buffer.plot(edgecolor='black')
-#centroid.plot(ax=ax1, color='none', edgecolor='k') #
+#plt.show()
 
 
 # Calculate the the max area, min area and the mean of boundaries layer
