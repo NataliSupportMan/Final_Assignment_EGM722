@@ -49,21 +49,19 @@ def scale_bar(ax, length='None', location=(0.5, 0.05), linewidth=5,):
 
 
 def capitalize_name(name):
-    """
-        This function will return the
-        name column from the attribute table
+    """ This function will return the name column from the attribute table
 
-        param: name is the name of the column
-        return: the name from attribute table column with method
-        title in order to capitalize the first letter of the element
+        Args:
+            name is the name of the column
+            return the name from attribute table column with method
+            title in order to capitalize the first letter of the element
     """
     # The return will bring back from the attribute table the column 'name', while the title method will capitalize the first letter of the element
     return name.title()
 
 
 def upper_name(name):
-    """
-        This function will return
+    """ This function will return
 
     """
     # The return will bring back from the attribute table the column 'name', while the upper method will capitalize the elements
@@ -71,18 +69,18 @@ def upper_name(name):
 
 
 def lower_name(name):
-    """
-        param: name is the name of the column
-        return: the name from attribute table column with method
-        title in order to lower the elements
+    """ This function
+        Args:
+            name is the name of the column
+            return the name from attribute table column with method
+            title in order to lower the elements
     """
     # The return will bring back from the attribute table the column 'name', while the lower method will lower the elements
     return name.lower()
 
 
 def generate_legend(labels, color, alpha=1):
-    """
-        This function
+    """ This function
     """
     handles = []
     for c, l in zip(color, labels):
@@ -92,10 +90,12 @@ def generate_legend(labels, color, alpha=1):
 
 
 def unique_name(name):
-    """
+    """ This function
 
-    param: name
-    return:
+    Args:
+        name
+        return the unique values of the name column in attribute table
+
     """
     unique = []
     for i in name:
@@ -129,16 +129,16 @@ refuges = refuges.to_crs(epsg=32635)
 
 
 # Provinces multipolygon layer
-provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center']) # Drop method will drop off the no needed columns from attribute table
-provinces['area_km2'] = provinces.area / 1000000 # Provinces adding a new column and bring back Square Kilometres
-provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True) # Rename column the columns
-provinces = provinces[['name', 'area_km2', 'population', 'geometry']] # Add the columns in order
-provinces['population'] = provinces.population / 1000 # Add the population column
-provinces = provinces.replace({ 'N. IRAKLIOU': 'Iraklion', # Replace method will replace the rows of 'name' column
-                                'N. CHANION': 'Chania',
-                                'N. LASITHIOU': 'Lasithi',
-                                'N. RETHYMNOU': 'Rethymno',
-                                })
+provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center'])  # Drop method will drop off the no needed columns from attribute table
+provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
+provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
+provinces = provinces[['name', 'area_km2', 'population', 'geometry']]  # Add the columns in order
+provinces['population'] = provinces.population / 1000   # Add the population column
+provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion', # Replace method will replace the rows of 'name' column
+                               'N. CHANION': 'Chania',
+                               'N. LASITHIOU': 'Lasithi',
+                               'N. RETHYMNOU': 'Rethymno',
+                               })
 #print(provinces)
 #print(provinces.describe())
 #print(provinces.count())
@@ -159,8 +159,8 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 #print(states)
 
 
-# Group by
-# Join
+# Group by method
+# Join method
 provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby function will split and group the data based the arguments and summarize the data
 join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join two layers
 
