@@ -148,7 +148,7 @@ provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will
 # So the results is 0 Iraklion and 2 lasithi as we got only 4 provinces in our attribute table
 filt = (provinces['name'] == 'Rethymno') | (provinces['name'] == 'Chania')
 provinces_filt = provinces.loc[~ filt, 'name']
-print(provinces_filt)
+#print(provinces_filt)
 
 
 # States multipolygons layer
@@ -158,39 +158,45 @@ states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change 
 states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the element's appearance of the attribute table
 #print(states.describe())  # describe method will return basic statistical of a data frame series
 #print(states)
-
+#states.plot(cmap="hsv")
+#plt.show()
 
 # Group by method
 # Join method
 provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
 join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join two layers
+#print(join_pro_sta)
 
 
 # Spatial Geo-processes
 # Intersection
-#intersection = gpd.overlay(provinces, states, how='intersection') # intersects the  two layers
+intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection') # intersects the province 'Chania' with state
+print(intersection)
+intersection.plot(cmap='hsv', edgecolor='k')
+plt.show()
 
 # Union
-#union = gpd.overlay(provinces, states, how='union') # union two layers and dissolve to one layer
+#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
 #union['common'] = 1
 #dissolve = union.dissolve(by='common')
 
+
 # Buffer
 #buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
+
 
 # Centroid
 #centroid = union['geometry'].centroid #
 #fig1, ax1 = plt.subplots() #
 
 
-# Plots
-#intersection.plot()
+# Plot the above layers for quick visualization. uncomment and comment back after visualization for less clustering
 #union.plot(ax=ax1, color='b', edgecolor='k') #
 #dissolve.plot()
 #buffer.plot(edgecolor='black')
 #centroid.plot(ax=ax1, color='none', edgecolor='k') #
-#plt.show()
-#print(join)
+
+
 
 
 # Calculate the the max area, min area and the mean of boundaries layer
@@ -219,7 +225,7 @@ cities = cities.replace({'Hrakleio': 'Iraklion',
 #cities.loc[1, 'name'] = 'agios nikolaos'
 #cities.loc[2, 'name'] = 'rethymno'
 #cities.loc[3, 'name'] = 'chania'
-print(cities)
+#print(cities)
 
 #for index, row in cities.iterrows():
 #   print(index, row['name'])
