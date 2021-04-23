@@ -205,7 +205,7 @@ mean_area = states['area_km2'].mean()
 
 
 # cities layer, using the drop method to remove columns as they containing information in greek language.
-#cities = cities.drop(columns=['fid', 'ONOMA'])
+cities = cities.drop(columns=['fid', 'ONOMA'])
 # Set the capital NAME to lower case
 cities.rename(columns={'NAME': 'name'},  inplace=True)
 # Using the replace method to replace the names of cities and setting
