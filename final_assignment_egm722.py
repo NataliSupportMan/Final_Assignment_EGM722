@@ -129,7 +129,7 @@ refuges = refuges.to_crs(epsg=32635)
 
 
 # Provinces multipolygon layer
-provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center']) # Drop method will drop off the no needed columns from attribute table
+provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns from attribute table
 provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
 provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
 provinces = provinces[['name', 'area_km2', 'population', 'geometry']]  # Add the columns in order
@@ -139,10 +139,11 @@ provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will
                                'N. LASITHIOU': 'Lasithi',
                                'N. RETHYMNOU': 'Rethymno',
                                })
-
+provinces_percentage = provinces['name'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'
+#print(provinces_percentage)
 #print(provinces.describe())  # describe method will return basic statistical of a data frame series
 #print(provinces.count())    # Returns an integer number of the values that appeared in the list
-#print(provinces)           # Will print on console the attribute table of provinces file
+#print(provinces)            # Will print on console the attribute table of provinces file
 
 
 # filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
@@ -163,10 +164,13 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 
 
 # Group by method
-# Join method
-provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
-join_pro_sta = gpd.sjoin(provinces, states,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
-#print(join_pro_sta)
+# Join method and count the total percentage of each states in province
+summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
+join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
+for i, row in join_pro_sta.iterrows():
+    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
+print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
+
 
 
 # Spatial Geo-processes
@@ -237,7 +241,7 @@ airports_sum = airports.name.apply(unique_name)
 filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
-print(airports_sum)
+#print(airports_sum)
 
 
 # The drop method will remove declared columns from the attribute table
@@ -287,22 +291,25 @@ roads = roads[['type', 'length', 'geometry']]
 
 # The normalize=True setting the total percentage of each road in the area
 # The total values of the column 'type' to observe the different roads type of total roads of each category
-roads_percentages = roads['type'].value_counts(normalize=True) * 100
+roads_percentages = roads['type'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'
+#print(roads_percentages)
 roads_type = roads['type'].value_counts()
+#print(roads_type)
 
 
 # Calculate the total length in Kilometres for each category
 roads_sum = roads.groupby(['type'])['length'].sum() / 1000
+#print(roads_sum)
+
 
 # Join the province polygon layer with roads multi-linestring
 join_pro_roa = gpd.sjoin(provinces, roads, how='inner', op='intersects')
+#print(join_pro_roa)
+
 
 provinces_roads_total = join_pro_roa.groupby(['name', 'type'])['length'].sum() / 1000
-#print(roads_percentages)
-#print(roads_type)
-#print(roads_sum)
-#print(join)
 #print(provinces_roads_total)
+
 
 # To make sure the roads got the same crs with provinces layer
 if provinces.crs == roads.crs:
@@ -315,12 +322,6 @@ else:
 filt = (roads['type'] == 'residential') | (roads['type'] == 'secondary')
 roads_filt = roads.loc[~ filt, 'type']
 #print(roads_filt)
-
-
-
-
-
-
 
 
 # Print the current crs of the layers provinces, cities, airports
@@ -337,7 +338,7 @@ gridlines.right_labels = False
 gridlines.bottom_labels = False
 
 
-# Plotting the individual shapefiles and overlapping them ax=ax
+# Plotting the individual shapefiles and overlapping ax=ax
 outline.plot(ax=ax, edgecolor='black', color='none', alpha=1)
 provinces.plot(ax=ax, edgecolor='black', color=color, alpha=1)
 cities.plot(ax=ax, edgecolor='black', markersize=100, color='magenta')
@@ -348,13 +349,15 @@ rivers.plot(ax=ax, color='b', alpha=1)
 plt.title('This is the map of Crete', fontsize=16)
 
 
-
 # checking the unique names of the province attribute
 num_provinces = (provinces.name.unique())
 #print('Number of unique features: {}'.format(num_provinces))
 
+
 # creating a list with unique names of the provinces
-provinces_names = list(provinces.name.unique())
+provinces_names = str(provinces.name.apply(unique_name))
+#print('{}'.format(provinces_names))
+
 
 # creating handles and trigger the function generate_legend to bring the m.pathces labels into the map
 provinces_handles = generate_legend(provinces.name, color, alpha=1)
@@ -365,28 +368,33 @@ refuges_handle = generate_legend(refuges.name, color='g', alpha=1)
 y_cities = cities.geometry.y
 x_cities = cities.geometry.x
 
+
 # creating a plot on the map for the points calling the x and y axis from attribute layer
 cities_handles = ax.plot(x_cities, y_cities, color='magenta', label='Cities',
                                     marker='o', linestyle='None', markersize=8)
 
+
 rivers_handle = ax.plot([], color='b', linewidth=2, label='Rivers')
 
 
-# Adding the name of cities on the map pulling the
+# Adding the name of cities on the map pulling the names from column 'name'
 for x_cities, y_cities, name in zip(
     cities.geometry.x, cities.geometry.y, cities.name):
         ax.annotate(name, xy=(x_cities, y_cities), backgroundcolor="None", fontsize=12, horizontalalignment='center',
                                                    verticalalignment='bottom')
 
 
-# calling the function to update the lower case letter to initial capital letters while looping the name attirbute in province_names
-get_names = [capitalize_name(name) for name in provinces_names]
+# calling the function 'capitalize_name' to update the lower case letter to initial capital letters while looping the name attirbute in province_names
+get_names = [capitalize_name for name in provinces_names]
+
 
 # creating the handles
 handles = provinces_handles + refuges_handle + cities_handles + rivers_handle
 
+
 # getting the labels for the legend
 labels = get_names + ['Refuges', 'Cities', 'Rivers']
+
 
 # adding the legend on the map
 plt.legend(handles, labels, title='Legend',
