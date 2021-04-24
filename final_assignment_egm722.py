@@ -158,24 +158,46 @@ states['area_km2'] = states.area / 1000000 # The area method will append a new c
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation type 'name', 'area_km2', 'geometry'
 states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the element's appearance of the attribute table
 #print(states.describe())  # describe method will return basic statistical of a data frame series
-#print(states)
+#print(states_percentage)
 #states.plot(cmap="hsv")
 #plt.show()
 
 
 # Group by method
 # Join method and count the total percentage of each states in province
-summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
-join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
-for i, row in join_pro_sta.iterrows():
-    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
-print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
+#summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
+#join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
+#for i, row in join_pro_sta.iterrows(): #
+#    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
+#print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
 
 
 
 # Spatial Geo-processes
-# Intersection
-intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection') # intersects the provinces 'Chania' with states
+# Intersection for the provinces layer 'Chania' with states layer
+
+intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection')  # intersects the provinces 'Chania' with states
+for i, row in intersection.iterrows():
+    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+print(intersection)
+#intersection.plot(cmap='hsv', edgecolor='k')
+#plt.show()
+
+
+
+# Intersection for the provinces layer 'Rethymno' with states layer
+intersection = gpd.overlay(provinces[provinces['name'] == 'Rethymno'], states, how='intersection') # intersects the provinces 'Chania' with states
+for i, row in intersection.iterrows():
+    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+#print(intersection)
+#intersection.plot(cmap='hsv', edgecolor='k')
+#plt.show()
+
+
+
+intersection = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states, how='intersection') # intersects the provinces 'Chania' with states
+for i, row in intersection.iterrows():
+    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
 #print(intersection)
 #intersection.plot(cmap='hsv', edgecolor='k')
 #plt.show()
@@ -288,6 +310,7 @@ for i, row in roads.iterrows():
 
 # Classification of columns and determination of order of each column
 roads = roads[['type', 'length', 'geometry']]
+
 
 # The normalize=True setting the total percentage of each road in the area
 # The total values of the column 'type' to observe the different roads type of total roads of each category
