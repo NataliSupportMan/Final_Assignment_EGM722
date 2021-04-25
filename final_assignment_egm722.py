@@ -122,6 +122,7 @@ def province_rethymno():
         rethymno.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
     return rethymno
 
+
 def province_iraklion():
     iralkion = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states,
                              how='intersection')  # intersects the provinces 'Iralkion' with states
@@ -279,26 +280,6 @@ filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
 #print(airports_sum)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # The drop method will remove declared columns from the attribute table
@@ -486,7 +467,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 
 
 
-plt.show()
+#plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
