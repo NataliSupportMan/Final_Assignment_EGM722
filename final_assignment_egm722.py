@@ -106,6 +106,37 @@ def unique_name(name):
     return unique
 
 
+def province_chania():
+    chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
+                             how='intersection')  # intersects the provinces 'Chania' with states
+    for i, row in chania.iterrows():
+        chania.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+    return chania
+
+
+def province_rethymno():
+    rethymno = gpd.overlay(provinces[provinces['name'] == 'Rethymno'], states,
+                             how='intersection')  # intersects the provinces 'Rethymno' with states
+    for i, row in rethymno.iterrows():
+        rethymno.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+    return rethymno
+
+def province_iraklion():
+    iralkion = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states,
+                             how='intersection')  # intersects the provinces 'Iralkion' with states
+    for i, row in iralkion.iterrows():
+        iralkion.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+    return iralkion
+
+
+def province_lasithi():
+    lasithi = gpd.overlay(provinces[provinces['name'] == 'Lasithi'], states,
+                             how='intersection')  # intersects the provinces 'Lasithi' with states
+    for i, row in lasithi.iterrows():
+        lasithi.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+    return lasithi
+
+
 # Reading the Vector shapefiles with Geopandas dataframe.
 provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\provinces\provinces.shp')
 states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\states\states.shp')
@@ -165,12 +196,11 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 
 # Group by method
 # Join method and count the total percentage of each states in province
-#summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
-#join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
-#for i, row in join_pro_sta.iterrows(): #
-#    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
+summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
+join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
+for i, row in join_pro_sta.iterrows(): #
+    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
 #print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
-
 
 
 # Spatial Geo-processes
@@ -182,14 +212,13 @@ for i, row in intersection.iterrows():
 #intersection.plot(cmap='hsv', edgecolor='k')
 #plt.show()
 
-def provinves_chania():
-    provinves_chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
-                             how='intersection')  # intersects the provinces 'Chania' with states
-    for i, row in provinves_chania.iterrows():
-        provinves_chania.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
-    return provinves_chania
 
-print(provinves_chania())
+# The function 'provinces_chania()' will return the individual states included in the province layer and the percentage of each individual state
+province_chania = province_chania()
+print(province_chania)
+#province_chania.plot(cmap='hsv', edgecolor='k')
+#plt.show()
+
 
 # Union and Centroid
 #union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
