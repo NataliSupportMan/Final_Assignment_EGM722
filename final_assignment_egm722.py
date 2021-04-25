@@ -3,6 +3,7 @@ from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from cartopy.feature import ShapelyFeature
+from shapely.geometry import Point, LineString, Polygon
 import cartopy.crs as ccrs
 import matplotlib.patches as mpatches
 import numpy as np
@@ -54,7 +55,7 @@ def capitalize_name(name):
         Args:
             name is the name of the column
             return the name from attribute table column with method
-            title in order to capitalize the first letter of the element
+           title in order to capitalize the first letter of the element
     """
     # The return will bring back from the attribute table the column 'name', while the title method will capitalize the first letter of the element
     return name.title()
@@ -215,7 +216,7 @@ for i, row in intersection.iterrows():
 
 # The function 'provinces_chania()' will return the individual states included in the province layer and the percentage of each individual state
 province_chania = province_chania()
-print(province_chania)
+#print(province_chania)
 #province_chania.plot(cmap='hsv', edgecolor='k')
 #plt.show()
 
@@ -265,20 +266,39 @@ cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to r
 #cities.loc[3, 'name'] = 'chania'
 #print(cities)
 
-#for index, row in cities.iterrows():
-#   print(index, row['name'])
 
 # Airports point shapefile layer
+airports = airports.drop(columns='Id')
 airports.rename(columns={'Name': 'name'},  inplace=True)
-airports = airports.replace({'Iraklion Airport':
-                             'Iraklion airport'})
+airports = airports.replace({'Heraklion Airport':
+                             'Iraklion Airport'})
 
-airports_upper = airports['name'].apply(capitalize_name)
+airports_upper = airports['name']#.apply(capitalize_name)
 airports_sum = airports.name.apply(unique_name)
 filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
 #print(airports_sum)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # The drop method will remove declared columns from the attribute table
@@ -312,6 +332,7 @@ rivers = rivers.drop(columns=['fid', 'objectid', 'eu_cd', 'name', 'altname2',
 
 rivers = rivers.rename(columns={'altname1': 'name', 'shape_Leng': 'shape_length'})
 
+
 for i, row in rivers.iterrows():
     rivers.loc[i, 'length'] = row['geometry'].length
 rivers = rivers[['name', 'length', 'shape_length', 'geometry']]
@@ -342,14 +363,14 @@ roads_sum = roads.groupby(['type'])['length'].sum() / 1000
 
 # Join the province polygon layer with roads multi-linestring
 join_pro_roa = gpd.sjoin(provinces, roads, how='inner', op='intersects')
-#print(join_pro_roa)
+print(join_pro_roa)
 
 
 provinces_roads_total = join_pro_roa.groupby(['name', 'type'])['length'].sum() / 1000
 #print(provinces_roads_total)
 
 
-# To make sure the roads got the same crs with provinces layer
+# Checking the roads layer being in same crs with provinces layer
 if provinces.crs == roads.crs:
     print('The provinces and the Roads got the same CRS:', provinces.crs, roads.crs)
 else:
@@ -388,12 +409,12 @@ plt.title('This is the map of Crete', fontsize=16)
 
 
 # checking the unique names of the province attribute
-num_provinces = (provinces.name.unique())
-#print('Number of unique features: {}'.format(num_provinces))
+num_provinces = list(provinces.name.apply(unique_name))
+print('Number of unique features: {}'.format(num_provinces))
 
 
 # creating a list with unique names of the provinces
-provinces_names = str(provinces.name.apply(unique_name))
+provinces_names = provinces.name.unique()
 #print('{}'.format(provinces_names))
 
 
@@ -423,7 +444,7 @@ for x_cities, y_cities, name in zip(
 
 
 # calling the function 'capitalize_name' to update the lower case letter to initial capital letters while looping the name attirbute in province_names
-get_names = [capitalize_name for name in provinces_names]
+get_names = [capitalize_name(name) for name in provinces_names]
 
 
 # creating the handles
@@ -465,7 +486,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 
 
 
-#plt.show()
+plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
