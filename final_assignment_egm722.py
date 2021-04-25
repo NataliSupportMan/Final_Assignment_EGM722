@@ -175,33 +175,21 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 
 # Spatial Geo-processes
 # Intersection for the provinces layer 'Chania' with states layer
-
 intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection')  # intersects the provinces 'Chania' with states
 for i, row in intersection.iterrows():
     intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
-print(intersection)
-#intersection.plot(cmap='hsv', edgecolor='k')
-#plt.show()
-
-
-
-# Intersection for the provinces layer 'Rethymno' with states layer
-intersection = gpd.overlay(provinces[provinces['name'] == 'Rethymno'], states, how='intersection') # intersects the provinces 'Chania' with states
-for i, row in intersection.iterrows():
-    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
 #print(intersection)
 #intersection.plot(cmap='hsv', edgecolor='k')
 #plt.show()
 
+def provinves_chania():
+    provinves_chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
+                             how='intersection')  # intersects the provinces 'Chania' with states
+    for i, row in provinves_chania.iterrows():
+        provinves_chania.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+    return provinves_chania
 
-
-intersection = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states, how='intersection') # intersects the provinces 'Chania' with states
-for i, row in intersection.iterrows():
-    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
-#print(intersection)
-#intersection.plot(cmap='hsv', edgecolor='k')
-#plt.show()
-
+print(provinves_chania())
 
 # Union and Centroid
 #union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
@@ -222,7 +210,7 @@ for i, row in intersection.iterrows():
 #plt.show()
 
 
-# Calculate the the max area, min area and the mean of boundaries layer
+# Calculate the the max area, min area and the mean of province layer
 max_area = states['area_km2'].max()
 min_area = states['area_km2'].min()
 mean_area = states['area_km2'].mean()
@@ -233,12 +221,10 @@ mean_area = states['area_km2'].mean()
 #print("Sum area: {0} km2".format(states['area_km2'].sum()))
 
 
-# cities layer, using the drop method to remove columns as they containing information in greek language.
-cities = cities.drop(columns=['fid', 'ONOMA'])
-# Set the capital NAME to lower case
-cities.rename(columns={'NAME': 'name'},  inplace=True)
-# Using the replace method to replace the names of cities and setting
-cities = cities.replace({'Hrakleio': 'Iraklion',
+# Cities layer,
+cities = cities.drop(columns=['fid', 'ONOMA']) # Using the drop method to remove columns as they containing information in greek language.
+cities.rename(columns={'NAME': 'name'},  inplace=True) # Set the capital NAME to lower case
+cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to replace the names of cities and setting
                          'Agios Nikolaos': 'Agios nikolaos',
                          'Rethimno': 'Rethymno',
                          'Hania': 'Chania'})
