@@ -369,7 +369,7 @@ roads_filt = roads.loc[~ filt, 'type']
 # print(current_crs)
 # For projected CRS added Univeral Trensverse Mercator coordinate system at 35
 CRS = ccrs.UTM(35)
-fig, ax, = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection=CRS))
+fig, ax, = plt.subplots(figsize=(18, 18), subplot_kw=dict(projection=CRS))
 
 gridlines = ax.gridlines(draw_labels=True,
                          xlocs=[26.5, 26, 25.5, 25, 24.5, 24, 23.5, 23],
@@ -467,7 +467,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 
 
 
-#plt.show()
+plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
