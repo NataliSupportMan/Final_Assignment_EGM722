@@ -309,7 +309,7 @@ airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geome
 airports.crs = ('epsg:32635')
 airports_points = gpd.sjoin(airports, provinces, op='within')
 airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
-print(airports_points)
+#print(airports_points)
 
 
 # The drop method will remove declared columns from the attribute table
