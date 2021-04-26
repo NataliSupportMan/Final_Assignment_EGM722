@@ -234,15 +234,15 @@ for i, row in intersection.iterrows():
 
 # The functions will return the individual states included in the province layer and the percentage of each individual state
 
-print(province_chania())
-print(province_rethymno())
-print(province_iraklion())
-print(province_lasithi())
-(province_chania()).plot(cmap='hsv', edgecolor='k', )
-(province_rethymno()).plot(cmap='hsv', edgecolor='k')
-(province_iraklion()).plot(cmap='hsv', edgecolor='k')
-(province_lasithi()).plot(cmap='hsv', edgecolor='k')
-plt.show()
+#print(province_chania())
+#print(province_rethymno())
+#print(province_iraklion())
+#print(province_lasithi())
+(province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
+(province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
+(province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
+(province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
+#plt.show()
 
 
 # Union and Centroid
@@ -278,7 +278,7 @@ mean_area = states['area_km2'].mean()
 # Cities layer,
 cities = cities.drop(columns=['fid', 'ONOMA']) # Using the drop method to remove columns as they containing information in greek language.
 cities.rename(columns={'NAME': 'name'},  inplace=True) # Set the capital NAME to lower case
-cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to replace the names of cities and setting
+cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to replace the names
                          'Agios Nikolaos': 'Agios nikolaos',
                          'Rethimno': 'Rethymno',
                          'Hania': 'Chania'})
@@ -297,12 +297,19 @@ airports.rename(columns={'Name': 'name'},  inplace=True)
 airports = airports.replace({'Heraklion Airport':
                              'Iraklion Airport'})
 
-airports_upper = airports['name']#.apply(capitalize_name)
+airports_upper = airports['name'].apply(capitalize_name)
 airports_sum = airports.name.apply(unique_name)
 filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
-#print(airports_sum)
+
+
+# The total aiports points per province polygon layer
+airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
+airports.crs = ('epsg:32635')
+airports_points = gpd.sjoin(airports, provinces, op='within')
+airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
+print(airports_points)
 
 
 # The drop method will remove declared columns from the attribute table
@@ -414,7 +421,7 @@ plt.title('This is the map of Crete', fontsize=16)
 
 # checking the unique names of the province attribute
 num_provinces = list(provinces.name.apply(unique_name))
-print('Number of unique features: {}'.format(num_provinces))
+#print('Number of unique features: {}'.format(num_provinces))
 
 
 # creating a list with unique names of the provinces
