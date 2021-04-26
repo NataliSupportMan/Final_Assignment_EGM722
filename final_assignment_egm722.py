@@ -55,33 +55,50 @@ def capitalize_name(name):
         Args:
             name is the name of the column
             return the name from attribute table column with method
-           title in order to capitalize the first letter of the element
+            title in order to capitalize the first letter of the value
     """
-    # The return will bring back from the attribute table the column 'name', while the title method will capitalize the first letter of the element
+    # The return will bring back from the attribute table the column 'name'
     return name.title()
 
 
 def upper_name(name):
-    """ This function will return
+    """ This function will return the name column from the attribute table
+
+         Args:
+            name is the name of the column
+            return the name from attribute table column with method
+            upper in order to upper case the value
 
     """
-    # The return will bring back from the attribute table the column 'name', while the upper method will capitalize the elements
+    # The return will bring back from the attribute table the column 'name'
     return name.upper()
 
 
 def lower_name(name):
     """ This function
+
         Args:
             name is the name of the column
             return the name from attribute table column with method
             title in order to lower the elements
     """
-    # The return will bring back from the attribute table the column 'name', while the lower method will lower the elements
+    # The return will bring back from the attribute table the column 'name'
     return name.lower()
 
 
 def generate_legend(labels, color, alpha=1):
     """ This function
+
+        Args:
+            label
+            color
+            aplha
+            handles [] is a condition of an empty list
+            zip
+            patches
+            handles
+            return
+
     """
     handles = []
     for c, l in zip(color, labels):
@@ -198,7 +215,7 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 
 # Group by method
 # Join method and count the total percentage of each states in province
-summarize = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
+provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
 join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
 for i, row in join_pro_sta.iterrows(): #
     join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
@@ -344,7 +361,7 @@ roads_sum = roads.groupby(['type'])['length'].sum() / 1000
 
 # Join the province polygon layer with roads multi-linestring
 join_pro_roa = gpd.sjoin(provinces, roads, how='inner', op='intersects')
-print(join_pro_roa)
+#print(join_pro_roa)
 
 
 provinces_roads_total = join_pro_roa.groupby(['name', 'type'])['length'].sum() / 1000
@@ -369,7 +386,7 @@ roads_filt = roads.loc[~ filt, 'type']
 # print(current_crs)
 # For projected CRS added Univeral Trensverse Mercator coordinate system at 35
 CRS = ccrs.UTM(35)
-fig, ax, = plt.subplots(figsize=(18, 18), subplot_kw=dict(projection=CRS))
+fig, ax, = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection=CRS))
 
 gridlines = ax.gridlines(draw_labels=True,
                          xlocs=[26.5, 26, 25.5, 25, 24.5, 24, 23.5, 23],
@@ -466,9 +483,8 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 )
 
 
-
 plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
-#fig.savefig('map.png', bbox_inches='tight', dpi=300)
+fig.savefig('map.png', bbox_inches='tight', dpi=300)
