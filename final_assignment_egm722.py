@@ -232,11 +232,17 @@ for i, row in intersection.iterrows():
 #plt.show()
 
 
-# The function 'provinces_chania()' will return the individual states included in the province layer and the percentage of each individual state
-province_chania = province_chania()
-#print(province_chania)
-#province_chania.plot(cmap='hsv', edgecolor='k')
-#plt.show()
+# The functions will return the individual states included in the province layer and the percentage of each individual state
+
+print(province_chania())
+print(province_rethymno())
+print(province_iraklion())
+print(province_lasithi())
+(province_chania()).plot(cmap='hsv', edgecolor='k', )
+(province_rethymno()).plot(cmap='hsv', edgecolor='k')
+(province_iraklion()).plot(cmap='hsv', edgecolor='k')
+(province_lasithi()).plot(cmap='hsv', edgecolor='k')
+plt.show()
 
 
 # Union and Centroid
@@ -463,7 +469,7 @@ plt.legend(handles, labels, title='Legend',
 # calling a style 'bmh' for better visualisation
 plt.style.use('bmh')
 
-# more styles are available below
+# More styles are available below
 #print(plt.style.available)
 
 # Scale bar
@@ -483,7 +489,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 )
 
 
-plt.show()
+#plt.show()
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
