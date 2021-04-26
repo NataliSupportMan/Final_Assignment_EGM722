@@ -29,3 +29,5 @@ Documentations can be found:
 1.2 For the python code, the PyCharm IDE recommended and can be found [here](https://www.jetbrains.com/pycharm/)
 
 1.3 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [click here](https://contextily.readthedocs.io/en/latest/) 
+
+## 2. Download or clone this repository
