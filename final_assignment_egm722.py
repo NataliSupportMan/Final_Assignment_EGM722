@@ -3,7 +3,8 @@ from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from cartopy.feature import ShapelyFeature
-from shapely.geometry import Point, LineString, Polygon
+from shapely.ops import nearest_points
+from shapely.geometry import Point, MultiPoint, LineString, Polygon
 import cartopy.crs as ccrs
 import matplotlib.patches as mpatches
 import numpy as np
@@ -156,6 +157,18 @@ def province_lasithi():
     return lasithi
 
 
+def get_nearest_values(row, other_gdf, point_column='geometry', value_column="geometry"):
+    """Find the nearest point and return the corresponding value from specified value column."""
+    # Create an union of the other GeoDataFrame's geometries:
+    other_points = other_gdf["geometry"].unary_union
+    # Find the nearest points
+    nearest_geoms = nearest_points(row[point_column], other_points)
+    # Get corresponding values from the other df
+    nearest_data = other_gdf.loc[other_gdf["geometry"] == nearest_geoms[1]]
+    nearest_value = nearest_data[value_column].values[0]
+    return nearest_value
+
+
 # Reading the Vector shapefiles with Geopandas dataframe.
 provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\provinces\provinces.shp')
 states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\states\states.shp')
@@ -215,8 +228,8 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 
 # Group by method
 # Join method and count the total percentage of each states in province
-provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data based the arguments and summarize the data
-join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states in order to combine which states included in province layer
+provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data
+join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states
 for i, row in join_pro_sta.iterrows(): #
     join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
 #print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
@@ -233,7 +246,6 @@ for i, row in intersection.iterrows():
 
 
 # The functions will return the individual states included in the province layer and the percentage of each individual state
-
 #print(province_chania())
 #print(province_rethymno())
 #print(province_iraklion())
@@ -296,7 +308,6 @@ airports = airports.drop(columns='Id')
 airports.rename(columns={'Name': 'name'},  inplace=True)
 airports = airports.replace({'Heraklion Airport':
                              'Iraklion Airport'})
-
 airports_upper = airports['name'].apply(capitalize_name)
 airports_sum = airports.name.apply(unique_name)
 filt = airports['name'].str.contains('Sitia', na=False)
@@ -304,12 +315,19 @@ filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports_upper)
 
 
-# The total aiports points per province polygon layer
+# The total aiports per province polygon layer
 airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
 airports.crs = ('epsg:32635')
 airports_points = gpd.sjoin(airports, provinces, op='within')
 airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
 #print(airports_points)
+
+
+# The nearest airport per city
+unary_union = cities.unary_union
+airports["nearest_cities"] = airports.apply(get_nearest_values, other_gdf=cities, point_column="geometry",
+                                                     value_column="name", axis=1)
+#print(airports)
 
 
 # The drop method will remove declared columns from the attribute table
