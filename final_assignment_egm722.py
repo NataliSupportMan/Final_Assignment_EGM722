@@ -158,7 +158,16 @@ def province_lasithi():
 
 
 def get_nearest_values(row, other_gdf, point_column='geometry', value_column="geometry"):
-    """Find the nearest point and return the corresponding value from specified value column."""
+    """Find the nearest point and return the corresponding value from specified value column.
+
+        Args
+            row will check each row
+            other_gdf refers to other shapefiles
+            point_column
+            values_column
+            return
+
+    """
     # Create an union of the other GeoDataFrame's geometries:
     other_points = other_gdf["geometry"].unary_union
     # Find the nearest points
@@ -169,7 +178,7 @@ def get_nearest_values(row, other_gdf, point_column='geometry', value_column="ge
     return nearest_value
 
 
-# Reading the Vector shapefiles with Geopandas dataframe.
+# Reading the Vector shapefiles with Geopandas GeoDataFrame.
 provinces = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\provinces\provinces.shp')
 states = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\states\states.shp')
 outline = gpd.read_file(r'E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub\Final_Assignment_EGM722\data\outline\outline.shp')
