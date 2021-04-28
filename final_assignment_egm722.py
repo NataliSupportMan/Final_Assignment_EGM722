@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import contextily as ctx
 
+
 # Random colors have been assigned
 color = ['#008fd5', '#fc4f30', '#fe7f2d', '#ffee32']
 
