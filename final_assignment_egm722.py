@@ -469,7 +469,6 @@ roads_filt = roads.loc[~ filt, 'type']
 # For projected CRS added Univeral Trensverse Mercator coordinate system at 35
 CRS = ccrs.UTM(35)
 fig, ax, = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection=CRS))
-
 gridlines = ax.gridlines(draw_labels=True,
                          xlocs=[26.5, 26, 25.5, 25, 24.5, 24, 23.5, 23],
                          ylocs=[34, 34.5, 35, 35.5, 36])
@@ -483,6 +482,7 @@ provinces.plot(ax=ax, edgecolor='black', color=color, alpha=1)
 cities.plot(ax=ax, edgecolor='black', markersize=100, color='magenta')
 refuges.plot(ax=ax, color='g')
 rivers.plot(ax=ax, color='b', alpha=1)
+
 
 # The title of the map
 plt.title('This is the map of Crete', fontsize=16)
