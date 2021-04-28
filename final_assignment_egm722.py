@@ -126,6 +126,10 @@ def unique_name(name):
 
 
 def province_chania():
+    """ This function will find the unique name of the provinces layer and will return
+        the percentage of each state
+
+    """
     chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
                              how='intersection')  # intersects the provinces 'Chania' with states
     for i, row in chania.iterrows():
@@ -134,6 +138,15 @@ def province_chania():
 
 
 def province_rethymno():
+    """ This function will find the unique name of the provinces layer and will return
+          the percentage of each state
+
+    Methods:
+        overlay will return the new overlap shapes
+        iterrows will iterate the index of each row in panda series
+        return will return the percentage of the specific each state
+
+      """
     rethymno = gpd.overlay(provinces[provinces['name'] == 'Rethymno'], states,
                              how='intersection')  # intersects the provinces 'Rethymno' with states
     for i, row in rethymno.iterrows():
@@ -142,6 +155,15 @@ def province_rethymno():
 
 
 def province_iraklion():
+    """ This function will find the unique name of the provinces layer and will return
+              the percentage of each state
+
+        Methods:
+            overlay will return the new overlap shapes
+            iterrows will iterate the index of each row in panda series
+            return will return the percentage of the specific each state
+
+      """
     iralkion = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states,
                              how='intersection')  # intersects the provinces 'Iralkion' with states
     for i, row in iralkion.iterrows():
@@ -150,6 +172,15 @@ def province_iraklion():
 
 
 def province_lasithi():
+    """ This function will find the unique name of the provinces layer and will return
+          the percentage of each state
+
+    Methods:
+        overlay will return the new overlap shapes
+        iterrows will iterate the index of each row in panda series
+        return will return the percentage of the specific each state
+
+      """
     lasithi = gpd.overlay(provinces[provinces['name'] == 'Lasithi'], states,
                              how='intersection')  # intersects the provinces 'Lasithi' with states
     for i, row in lasithi.iterrows():
@@ -158,15 +189,14 @@ def province_lasithi():
 
 
 def get_nearest_values(row, other_gdf, point_column='geometry', value_column="geometry"):
-    """Find the nearest point and return the corresponding value from specified value column.
+    """This function will find the nearest point and will return the value.
 
-        Args
+        Args:
             row will check each row
-            other_gdf refers to other shapefiles
-            point_column
-            values_column
-            return
-
+            other_gdf refers to other shapefiles points, polygons
+            point_column will return the geometry
+            values_column will return the refered value 'name', 'geometry'
+            return will return the nearest value
     """
     # Create an union of the other GeoDataFrame's geometries:
     other_points = other_gdf["geometry"].unary_union
@@ -338,11 +368,19 @@ airports["nearest_cities"] = airports.apply(get_nearest_values, other_gdf=cities
                                                      value_column="name", axis=1)
 #print(airports)
 
+join_airports = gpd.sjoin(airports, provinces, how='inner')
+join_airports.rename(columns={'name_left': 'airports_name',
+                              'name_right': 'province_name',
+                              })
+
+print(join_airports)
+
 
 # The drop method will remove declared columns from the attribute table
 refuges = refuges.drop(columns=['fid', 'OBJECTID', 'KODE', 'FEK', 'AREA_',
                                 'PREFECTURE', 'DESCRIPTIO', 'CREATED_BY',
                                 'CREATED_DA', 'UPDATED_BY', 'UPDATED_BY', 'ID'])
+
 
 # Rename method to change the elements designation type 'name', 'geometry'
 refuges = refuges.rename(columns={'NAME': 'name',
@@ -521,7 +559,6 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 #source=ctx.providers.CartoDB.Voyager
                 #source=ctx.providers.OpenStreetMap.Mapnik
                 )
-
 
 #plt.show()
 
