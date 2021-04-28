@@ -247,9 +247,9 @@ provinces = provinces.replace({'N. IRAKLIOU': 'Iraklion',  # Replace method will
                                })
 provinces_percentage = provinces['name'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'
 #print(provinces_percentage)
-#print(provinces.describe())  # describe method will return basic statistical of a data frame series
-#print(provinces.count())    # Returns an integer number of the values that appeared in the list
-#print(provinces)            # Will print on console the attribute table of provinces file
+#print(provinces.describe())
+#print(provinces.count())
+#print(provinces)
 
 
 # filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
@@ -263,7 +263,7 @@ states = states.drop(columns=['KWD_YPES']) # The drop method will remove declare
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation type 'name', 'area_km2', 'geometry'
 states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the element's appearance of the attribute table
-#print(states.describe())  # describe method will return basic statistical of a data frame series
+#print(states.describe())
 #print(states_percentage)
 #states.plot(cmap="hsv")
 #plt.show()
