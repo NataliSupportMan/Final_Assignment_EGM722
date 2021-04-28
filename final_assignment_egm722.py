@@ -11,8 +11,6 @@ import numpy as np
 import pandas as pd
 import contextily as ctx
 
-
-
 # Random colors have been assigned
 color = ['#008fd5', '#fc4f30', '#fe7f2d', '#ffee32']
 
@@ -188,7 +186,7 @@ def province_lasithi():
     return lasithi
 
 
-def get_nearest_values(row, other_gdf, point_column='geometry', value_column="geometry"):
+def nearest_values(row, other_gdf, point_column='geometry', value_column="geometry"):
     """This function will find the nearest point and will return the value.
 
         Args:
@@ -364,7 +362,7 @@ airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'pro
 
 # The nearest airport per city
 unary_union = cities.unary_union
-airports["nearest_cities"] = airports.apply(get_nearest_values, other_gdf=cities, point_column="geometry",
+airports["nearest_cities"] = airports.apply(nearest_values, other_gdf=cities, point_column="geometry",
                                                      value_column="name", axis=1)
 #print(airports)
 
@@ -373,7 +371,7 @@ join_airports.rename(columns={'name_left': 'airports_name',
                               'name_right': 'province_name',
                               })
 
-print(join_airports)
+#print(join_airports)
 
 
 # The drop method will remove declared columns from the attribute table
