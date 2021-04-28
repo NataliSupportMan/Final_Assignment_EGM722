@@ -111,7 +111,7 @@ def unique_name(name):
     """ This function
 
     Args:
-        name
+        name is the column of the values
         return the unique values of the 'name' column in attribute table
 
     """
@@ -126,7 +126,12 @@ def unique_name(name):
 
 def province_chania():
     """ This function will find the unique name of the provinces layer and will return
-        the percentage of each state
+          the percentage of each state
+
+    Methods:
+        overlay will return the new overlap shapes
+        iterrows will iterate the index of each row in panda series
+        return will return the percentage of the specific each state
 
     """
     chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
