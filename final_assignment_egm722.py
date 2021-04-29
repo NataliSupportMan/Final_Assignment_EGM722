@@ -17,14 +17,14 @@ color = ['#008fd5', '#fc4f30', '#fe7f2d', '#ffee32']
 
 
 def scale_bar(ax, length='None', location=(0.5, 0.05), linewidth=5,):
-    """ This function will brink back a scalebar
+    """ This function will brink back a scale_bar
 
         Args:
-            ax is the axes to draw the scalebar on.
-            length is the length of the scalebar in km.
-            location is center of the scalebar in axis coordinates.
+            ax is the axes to draw the scale_bar .
+            length is the length of the scale_bar in km.
+            location is center of the scale_bar in axis coordinates.
             (0.5 controls the East West position of the plot and 0.05 controls North South of the plot)
-            linewidth is the thickness of the scalebar.
+            linewidth is the thickness of the scale_bar.
 
     """
     #Get the limits of the axis in lat long
