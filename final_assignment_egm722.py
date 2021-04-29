@@ -489,30 +489,32 @@ rivers.plot(ax=ax, color='b', alpha=1)
 plt.title('This is the map of Crete', fontsize=16)
 
 
-# checking the unique names of the province attribute
+# Checking the unique names of the province attribute
 num_provinces = list(provinces.name.apply(unique_name))
 #print('Number of unique features: {}'.format(num_provinces))
 
 
-# creating a list with unique names of the provinces
+# Creating a list with unique names of the provinces
 provinces_names = provinces.name.unique()
 #print('{}'.format(provinces_names))
 
 
-# creating handles and trigger the function generate_legend to bring the m.pathces labels into the map
+# Creating handles and trigger the function generate_legend to bring the m.pathces labels into the map
 provinces_handles = generate_legend(provinces.name, color, alpha=1)
 refuges_handle = generate_legend(refuges.name, color='g', alpha=1)
 
 
-# define the column geometry x and y axis for cities shapefile points
+# Define the column geometry x and y axis for cities shapefile points
 y_cities = cities.geometry.y
 x_cities = cities.geometry.x
 
 
-# creating a plot on the map for the points calling the x and y axis from attribute layer
-cities_handles = ax.plot(x_cities, y_cities, color='magenta', label='Cities',
-                                    marker='o', linestyle='None', markersize=8)
-
+# Creating a plot on the map for the points calling the x and y axis from attribute layer
+cities_handles = ax.plot(x_cities, y_cities, color='magenta',
+                                            label='Cities',
+                                            marker='o',
+                                            linestyle='None',
+                                            markersize=8)
 
 rivers_handle = ax.plot([], color='b', linewidth=2, label='Rivers')
 
@@ -524,26 +526,26 @@ for x_cities, y_cities, name in zip(
                                                    verticalalignment='bottom')
 
 
-# calling the function 'capitalize_name' to update the lower case letter to initial capital letters while looping the name attirbute in province_names
+# Calling the function 'capitalize_name' to update the lower case letter to initial capital letters while looping the name attirbute in province_names
 get_names = [capitalize_name(name) for name in provinces_names]
 
 
-# creating the handles
+# Creating the handles
 handles = provinces_handles + refuges_handle + cities_handles + rivers_handle
 
 
-# getting the labels for the legend
+# Getting the labels for the legend
 labels = get_names + ['Refuges', 'Cities', 'Rivers']
 
 
-# adding the legend on the map
+# Adding the legend on the map
 plt.legend(handles, labels, title='Legend',
                             title_fontsize=12,
                             fontsize=10,
                             loc='upper right')
 
 
-# calling a style 'bmh' for better visualisation
+# Calling a style 'bmh' for better visualisation
 plt.style.use('bmh')
 
 # More styles are available below
@@ -569,4 +571,4 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
-fig.savefig('map.png', bbox_inches='tight', dpi=300)
+#fig.savefig('map.png', bbox_inches='tight', dpi=300)
