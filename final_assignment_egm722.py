@@ -542,11 +542,14 @@ plt.legend(handles, labels, title='Legend',
 # Calling a style 'bmh' for better visualisation
 plt.style.use('bmh')
 
+
 # More styles are available below
 #print(plt.style.available)
 
+
 # Scale bar
 scale_bar(ax, 20)
+
 
 # In order to observe the base map you need to install the "contextily" package below. Please make a note DO NOT ADD THE QUOTATION MARKS ON CMD COMMAND
 # 1) Option, Open the cmd on windows or linux or mac and type "conda install contextily" or "conda install -c conda-forge contextily" and if not installed because the Current channel are not available go to option 2
