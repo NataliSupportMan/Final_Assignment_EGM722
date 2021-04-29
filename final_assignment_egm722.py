@@ -252,6 +252,17 @@ provinces_percentage = provinces['name'].value_counts(normalize=True).mul(100).r
 #print(provinces)
 
 
+# Calculate the the max area, min area and the mean of provinces layer
+max_area = provinces['area_km2'].max()
+min_area = provinces['area_km2'].min()
+mean_area = provinces['area_km2'].mean()
+#print(provinces[provinces['area_km2'] > 10])
+#print("Max area: {0} km2".format(max_area))
+#print("Min area: {0} km2".format(min_area))
+#print("Mean area: {0} km2".format(mean_area))
+#print("Sum area: {0} km2".format(provinces['area_km2'].sum()))
+
+
 # filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
 filt = (provinces['name'] == 'Rethymno') | (provinces['name'] == 'Chania')
 provinces_filt = provinces.loc[~ filt, 'name']
@@ -267,67 +278,6 @@ states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the
 #print(states_percentage)
 #states.plot(cmap="hsv")
 #plt.show()
-
-
-# Group by method
-# Join method and count the total percentage of each states in province
-provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data
-join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states
-for i, row in join_pro_sta.iterrows(): #
-    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
-#print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
-
-
-# Spatial Geo-processes
-# Intersection for the provinces layer 'Chania' with states layer
-intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection')  # intersects the provinces 'Chania' with states
-for i, row in intersection.iterrows():
-    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
-#print(intersection)
-#intersection.plot(cmap='hsv', edgecolor='k')
-#plt.show()
-
-
-# The functions will return the individual states included in the province layer and the percentage of each individual state
-#print(province_chania())
-#print(province_rethymno())
-#print(province_iraklion())
-#print(province_lasithi())
-(province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
-(province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
-(province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
-(province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
-#plt.show()
-
-
-# Union and Centroid
-#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
-#union['common'] = 1
-#dissolve = union.dissolve(by='common')
-#centroid = union['geometry'].centroid #
-#fig1, ax1 = plt.subplots() #
-#centroid.plot(ax=ax1, color='none', edgecolor='k') #
-#dissolve.plot(ax=ax1, color='none', edgecolor='k')
-#union.plot(color='none', edgecolor='k')
-#plt.show()
-#print(centroid)
-
-
-# Buffer
-#buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
-#buffer.plot(edgecolor='black')
-#plt.show()
-
-
-# Calculate the the max area, min area and the mean of province layer
-max_area = states['area_km2'].max()
-min_area = states['area_km2'].min()
-mean_area = states['area_km2'].mean()
-#print(states[states['area_km2'] > 10])
-#print("Max area: {0} km2".format(max_area))
-#print("Min area: {0} km2".format(min_area))
-#print("Mean area: {0} km2".format(mean_area))
-#print("Sum area: {0} km2".format(states['area_km2'].sum()))
 
 
 # Cities layer,
@@ -461,6 +411,57 @@ else:
 filt = (roads['type'] == 'residential') | (roads['type'] == 'secondary')
 roads_filt = roads.loc[~ filt, 'type']
 #print(roads_filt)
+
+
+
+# Group by method
+# Join method and count the total percentage of each states in province
+provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data
+join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states
+for i, row in join_pro_sta.iterrows(): #
+    join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
+#print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
+
+
+# Spatial Geo-processes
+# Intersection for the provinces layer 'Chania' with states layer
+intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection')  # intersects the provinces 'Chania' with states
+for i, row in intersection.iterrows():
+    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
+#print(intersection)
+#intersection.plot(cmap='hsv', edgecolor='k')
+#plt.show()
+
+
+# The functions will return the individual states included in the province layer and the percentage of each individual state
+#print(province_chania())
+#print(province_rethymno())
+#print(province_iraklion())
+#print(province_lasithi())
+(province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
+(province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
+(province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
+(province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
+#plt.show()
+
+
+# Union and Centroid
+#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
+#union['common'] = 1
+#dissolve = union.dissolve(by='common')
+#centroid = union['geometry'].centroid #
+#fig1, ax1 = plt.subplots() #
+#centroid.plot(ax=ax1, color='none', edgecolor='k') #
+#dissolve.plot(ax=ax1, color='none', edgecolor='k')
+#union.plot(color='none', edgecolor='k')
+#plt.show()
+#print(centroid)
+
+
+# Buffer
+#buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
+#buffer.plot(edgecolor='black')
+#plt.show()
 
 
 # Print the current crs of the layers provinces, cities, airports
