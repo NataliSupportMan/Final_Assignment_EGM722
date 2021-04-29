@@ -308,7 +308,7 @@ filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports_upper)
 
 
-# The total aiports per province polygon layer
+# The total airports per province
 airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
 airports.crs = ('epsg:32635')
 airports_points = gpd.sjoin(airports, provinces, op='within')
@@ -321,6 +321,7 @@ unary_union = cities.unary_union
 airports["nearest_cities"] = airports.apply(nearest_values, other_gdf=cities, point_column="geometry",
                                                      value_column="name", axis=1)
 #print(airports)
+
 
 join_airports = gpd.sjoin(airports, provinces, how='inner')
 join_airports.rename(columns={'name_left': 'airports_name',
@@ -411,7 +412,6 @@ else:
 filt = (roads['type'] == 'residential') | (roads['type'] == 'secondary')
 roads_filt = roads.loc[~ filt, 'type']
 #print(roads_filt)
-
 
 
 # Group by method
