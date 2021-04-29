@@ -39,12 +39,11 @@ def scale_bar(ax, length='None', location=(0.5, 0.05), linewidth=5,):
     #Turn the specified scalebar location into coordinates in metres
     sbx = x0 + (x1 - x0) * location[0]
     sby = y0 + (y1 - y0) * location[1]
-
     #Generate the x coordinate for the ends of the scalebar
     bar_xs = [sbx - length * 700, sbx + length * 700]
-    #Plot the scalebar
+    #Plot the scale_bar
     ax.plot(bar_xs, [sby, sby], transform=tmc, color='black', linewidth=linewidth)
-    #Plot the scalebar label
+    #Plot the scale_bar label
     ax.text(sbx, sby, str(length) + ' km', transform=tmc,
             horizontalalignment='center', verticalalignment='bottom', fontsize=12, )
 
@@ -92,12 +91,12 @@ def generate_legend(labels, color, alpha=1):
         Args:
             label will add the labels
             color will add the colors
-            aplha controls the transparecy
+            alpha controls the transparency
             handles [] is a condition of an empty list
             zip will define iterable arguments from two or more iterables
-            patches will generate face color and edge color patche
+            patches will generate face color and edge color patches
             handles will generate an appropriate entry
-            return will return handle
+            return will return handles
 
     """
     handles = []
@@ -199,7 +198,7 @@ def nearest_values(row, other_gdf, point_column='geometry', value_column="geomet
             row will check each row
             other_gdf refers to other shapefiles points, polygons
             point_column will return the geometry
-            values_column will return the refered value 'name', 'geometry'
+            values_column will return the referred value 'name', 'geometry'
             return will return the nearest value
     """
     # Create an union of the other GeoDataFrame's geometries:
@@ -272,10 +271,10 @@ provinces_filt = provinces.loc[~ filt, 'name']
 # States multipolygons layer
 states = states.drop(columns=['KWD_YPES']) # The drop method will remove declared columns from the attribute table
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
-states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation type 'name', 'area_km2', 'geometry'
-states = states[['name', 'area_km2', 'geometry']] # Double arrays to perform the element's appearance of the attribute table
+states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation
+states = states[['name', 'area_km2', 'geometry']]
 #print(states.describe())
-#print(states_percentage)
+#print(states)
 #states.plot(cmap="hsv")
 #plt.show()
 
