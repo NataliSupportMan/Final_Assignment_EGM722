@@ -50,7 +50,7 @@ def scale_bar(ax, length='None', location=(0.5, 0.05), linewidth=5,):
 
 
 def capitalize_name(name):
-    """ This function will return the name column from the attribute table
+    """ This function will capitalize the initial letter of values
 
         Args:
             name is the name of the column
@@ -62,7 +62,7 @@ def capitalize_name(name):
 
 
 def upper_name(name):
-    """ This function will return the name column from the attribute table
+    """ This function will upper case the values
 
          Args:
             name is the name of the column
@@ -75,7 +75,7 @@ def upper_name(name):
 
 
 def lower_name(name):
-    """ This function
+    """ This function will lower case the values
 
         Args:
             name is the name of the column
@@ -87,17 +87,17 @@ def lower_name(name):
 
 
 def generate_legend(labels, color, alpha=1):
-    """ This function
+    """ This function will generate colored patches on the legend label
 
         Args:
-            label
-            color
-            aplha
+            label will add the labels
+            color will add the colors
+            aplha controls the transparecy
             handles [] is a condition of an empty list
-            zip
-            patches
-            handles
-            return
+            zip will define iterable arguments from two or more iterables
+            patches will generate face color and edge color patche
+            handles will generate an appropriate entry
+            return will return handle 
 
     """
     handles = []
@@ -131,7 +131,7 @@ def province_chania():
     Methods:
         overlay will return the new overlap shapes
         iterrows will iterate the index of each row in panda series
-        return will return the percentage of the specific each state
+        return will return the percentage of each state
 
     """
     chania = gpd.overlay(provinces[provinces['name'] == 'Chania'], states,
@@ -148,7 +148,7 @@ def province_rethymno():
     Methods:
         overlay will return the new overlap shapes
         iterrows will iterate the index of each row in panda series
-        return will return the percentage of the specific each state
+        return will return the percentage of each state
 
       """
     rethymno = gpd.overlay(provinces[provinces['name'] == 'Rethymno'], states,
@@ -165,7 +165,7 @@ def province_iraklion():
         Methods:
             overlay will return the new overlap shapes
             iterrows will iterate the index of each row in panda series
-            return will return the percentage of the specific each state
+            return will return the percentage of each state
 
       """
     iralkion = gpd.overlay(provinces[provinces['name'] == 'Iraklion'], states,
@@ -182,7 +182,7 @@ def province_lasithi():
     Methods:
         overlay will return the new overlap shapes
         iterrows will iterate the index of each row in panda series
-        return will return the percentage of the specific each state
+        return will return the percentage of each state
 
       """
     lasithi = gpd.overlay(provinces[provinces['name'] == 'Lasithi'], states,
