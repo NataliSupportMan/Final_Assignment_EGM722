@@ -50,7 +50,7 @@ def scale_bar(ax, length='None', location=(0.5, 0.05), linewidth=5,):
 
 
 def capitalize_name(name):
-    """ This function will capitalize the initial letter of values
+    """ This function will capitalize the initial letter of the values
 
         Args:
             name is the name of the column
@@ -97,7 +97,7 @@ def generate_legend(labels, color, alpha=1):
             zip will define iterable arguments from two or more iterables
             patches will generate face color and edge color patche
             handles will generate an appropriate entry
-            return will return handle 
+            return will return handle
 
     """
     handles = []
@@ -108,7 +108,7 @@ def generate_legend(labels, color, alpha=1):
 
 
 def unique_name(name):
-    """ This function
+    """ This function will find the unique names on the list
 
     Args:
         name is the column of the values
