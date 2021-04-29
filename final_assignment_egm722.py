@@ -408,12 +408,6 @@ else:
     print('Not the same CRS')
 
 
-# filters for the residential or secondary roads applied
-filt = (roads['type'] == 'residential') | (roads['type'] == 'secondary')
-roads_filt = roads.loc[~ filt, 'type']
-#print(roads_filt)
-
-
 # Group by method
 # Join method and count the total percentage of each states in province
 provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data
