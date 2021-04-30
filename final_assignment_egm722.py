@@ -444,10 +444,7 @@ buffer.plot(edgecolor='k', color='blue')
 #plt.show()
 
 
-# Print the current crs of the layers provinces, cities, airports
-# current_crs = boundaries.crs, cities.crs, airports.crs, rivers,
-# print(current_crs)
-# For projected CRS added Univeral Trensverse Mercator coordinate system at 35
+# For projected layers CRS added UniveralTrensverseMercator UTM coordinate system at 35
 CRS = ccrs.UTM(35)
 fig, ax, = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection=CRS))
 gridlines = ax.gridlines(draw_labels=True,
