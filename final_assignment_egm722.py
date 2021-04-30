@@ -233,7 +233,7 @@ roads = roads.to_crs(epsg=32635)
 refuges = refuges.to_crs(epsg=32635)
 
 
-# Provinces multipolygon layer
+# Provinces polygons layer
 provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns from attribute table
 provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
 provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
@@ -268,7 +268,7 @@ provinces_filt = provinces.loc[~ filt, 'name']
 #print(provinces_filt)
 
 
-# States multipolygons layer
+# States polygons layer
 states = states.drop(columns=['KWD_YPES']) # The drop method will remove declared columns from the attribute table
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation
@@ -295,7 +295,7 @@ cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to r
 #print(cities)
 
 
-# Airports point shapefile layer
+# Airports points shapefile layer
 airports = airports.drop(columns='Id')
 airports.rename(columns={'Name': 'name'},  inplace=True)
 airports = airports.replace({'Heraklion Airport':
@@ -307,27 +307,20 @@ filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports_upper)
 
 
-# The total airports per province polygon layer
-airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
-airports.crs = ('epsg:32635')
-airports_points = gpd.sjoin(airports, provinces, op='within')
-airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
-#print(airports_points)
-
-
 # The nearest airport per city point layer
 unary_union = cities.unary_union
 airports["nearest_cities"] = airports.apply(nearest_values, other_gdf=cities, point_column="geometry",
-                                                     value_column="name", axis=1)
+                                                            value_column="name", axis=1)
 
-#print(airports)
+print(airports)
 
 
-join_airports = gpd.sjoin(airports, provinces, how='inner')
-join_airports.rename(columns={"name_left": "airports_name",
-                              "name_right": 'provinces_name',
-                              }, inplace=True)
-#print(join_airports)
+# The total airports included per province polygon layer
+airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
+airports.crs = ('epsg:32635')
+airports_per_pro = gpd.sjoin(airports, provinces, op='within')
+airports_per_pro.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
+print(airports_per_pro)
 
 
 # Refuges multipolygon layer and drop method will remove declared columns from the attribute table
