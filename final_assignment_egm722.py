@@ -312,15 +312,14 @@ unary_union = cities.unary_union
 airports["nearest_cities"] = airports.apply(nearest_values, other_gdf=cities, point_column="geometry",
                                                             value_column="name", axis=1)
 
-print(airports)
+#print(airports)
 
-
-# The total airports included per province polygon layer
+# The total airports included per province polygon layer and the nearest city
 airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
 airports.crs = ('epsg:32635')
 airports_per_pro = gpd.sjoin(airports, provinces, op='within')
 airports_per_pro.rename(columns={'name_left': 'airports_name', 'name_right': 'provinces_name'},  inplace=True)
-print(airports_per_pro)
+#print(airports_per_pro)
 
 
 # Refuges multipolygon layer and drop method will remove declared columns from the attribute table
