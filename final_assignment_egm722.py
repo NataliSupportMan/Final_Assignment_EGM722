@@ -344,7 +344,8 @@ join_refuges.rename(columns={'name': 'refuges_name',
 # Run the loop to return the percentage only for the refuges layer included in province_chania
 for i, row in join_refuges.iterrows(): #
     join_refuges.loc[i, 'refuges_Pc'] = row['area_km2'] / row['area_km2_2'] * 100
-print(join_refuges)
+#print(join_refuges)
+#print(refuges)
 
 
 # Rivers line layer
@@ -360,16 +361,16 @@ rivers = rivers.drop(columns=['fid', 'objectid', 'eu_cd', 'name', 'altname2',
 rivers = rivers.rename(columns={'altname1': 'name', 'shape_Leng': 'shape_length'})
 # For rivers looping the table and add the 'length'
 for i, row in rivers.iterrows():
-    rivers.loc[i, 'length'] = row['geometry'].length
+    rivers.loc[i, 'length'] = row['geometry'].length / 1000
 # Re-order the columns
 rivers = rivers[['name', 'length', 'shape_length', 'geometry']]
 # Applying the function upper_name
 rivers_lower = rivers['name'].apply(upper_name)
-#print(rivers)
+print(rivers)
 #print(rivers_lower)
 
 
-# Roads layer
+# Roads line layer
 # For roads looping the table in order to add the length of the roads in metres as the crs is in metres
 for i, row in roads.iterrows():
     roads.loc[i, 'length'] = row['geometry'].length
