@@ -296,13 +296,13 @@ cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to r
 
 
 # Airports points shapefile layer
-airports = airports.drop(columns='Id')
-airports.rename(columns={'Name': 'name'},  inplace=True)
-airports = airports.replace({'Heraklion Airport':
+airports = airports.drop(columns='Id') # Drop method to remove columns
+airports.rename(columns={'Name': 'name'},  inplace=True) # Rename the columns
+airports = airports.replace({'Heraklion Airport': # Replace the values of the rows
                              'Iraklion Airport'})
-airports_upper = airports['name'].apply(capitalize_name)
-airports_sum = airports.name.apply(unique_name)
-filt = airports['name'].str.contains('Sitia', na=False)
+airports_upper = airports['name'].apply(capitalize_name) # Capitalize function
+airports_sum = airports.name.apply(unique_name) # Unique finction
+filt = airports['name'].str.contains('Sitia', na=False) # Str.contains will return if only the arguments is True
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
 
@@ -322,7 +322,7 @@ airports_per_pro.rename(columns={'name_left': 'airports_name', 'name_right': 'pr
 #print(airports_per_pro)
 
 
-# Refuges multipolygon layer and drop method will remove declared columns from the attribute table
+# Refuges polygons layer and drop method to remove declared columns
 refuges = refuges.drop(columns=['fid', 'OBJECTID', 'KODE', 'FEK', 'AREA_',
                                 'PREFECTURE', 'DESCRIPTIO', 'CREATED_BY',
                                 'CREATED_DA', 'UPDATED_BY', 'UPDATED_BY', 'ID'])
@@ -344,7 +344,7 @@ join_refuges.rename(columns={'name': 'refuges_name',
 # Run the loop to return the percentage only for the refuges layer included in province_chania
 for i, row in join_refuges.iterrows(): #
     join_refuges.loc[i, 'refuges_Pc'] = row['area_km2'] / row['area_km2_2'] * 100
-#print(join_refuges)
+print(join_refuges)
 
 
 # Rivers line layer
