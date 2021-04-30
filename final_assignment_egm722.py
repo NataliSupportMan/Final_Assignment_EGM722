@@ -279,7 +279,7 @@ states = states[['name', 'area_km2', 'geometry']]
 #plt.show()
 
 
-# Cities layer,
+# Cities points layer,
 cities = cities.drop(columns=['fid', 'ONOMA']) # Using the drop method to remove columns as they containing information in greek language.
 cities.rename(columns={'NAME': 'name'},  inplace=True) # Set the capital NAME to lower case
 cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to replace the names
@@ -307,7 +307,7 @@ filt = airports['name'].str.contains('Sitia', na=False)
 #print(airports_upper)
 
 
-# The total airports per province
+# The total airports per province polygon layer
 airports = gpd.GeoDataFrame(airports, geometry=gpd.points_from_xy(airports.geometry.x, airports.geometry.y))
 airports.crs = ('epsg:32635')
 airports_points = gpd.sjoin(airports, provinces, op='within')
@@ -315,42 +315,47 @@ airports_points.rename(columns={'name_left': 'airports_name', 'name_right': 'pro
 #print(airports_points)
 
 
-# The nearest airport per city
+# The nearest airport per city point layer
 unary_union = cities.unary_union
 airports["nearest_cities"] = airports.apply(nearest_values, other_gdf=cities, point_column="geometry",
                                                      value_column="name", axis=1)
+
 #print(airports)
 
 
 join_airports = gpd.sjoin(airports, provinces, how='inner')
-join_airports.rename(columns={'name_left': 'airports_name',
-                              'name_right': 'province_name',
-                              })
-
+join_airports.rename(columns={"name_left": "airports_name",
+                              "name_right": 'provinces_name',
+                              }, inplace=True)
 #print(join_airports)
 
 
-# The drop method will remove declared columns from the attribute table
+# Refuges multipolygon layer and drop method will remove declared columns from the attribute table
 refuges = refuges.drop(columns=['fid', 'OBJECTID', 'KODE', 'FEK', 'AREA_',
                                 'PREFECTURE', 'DESCRIPTIO', 'CREATED_BY',
                                 'CREATED_DA', 'UPDATED_BY', 'UPDATED_BY', 'ID'])
-
-
-# Rename method to change the elements designation type 'name', 'geometry'
+# Rename method to change the elements designation
 refuges = refuges.rename(columns={'NAME': 'name',
                                  'PERIMETER': 'perimeter',
                                  'HECTARES': 'hectares',
                                  'UPDATED': 'update',
                                  'SHAPE_AREA': 'shape_area',
                                  'SHAPE_LEN': 'shape_lenght'})
-
+# Adding the area column
 refuges['area_km2'] = refuges.area / 1000000
-#print(refuges)
-
-
-# Drop the no needed columns
+# Join the refuges with function province_chania()
+join_refuges = gpd.sjoin(refuges, province_chania())
 # Rename the columns
-# Add the sequence
+join_refuges.rename(columns={'name': 'refuges_name',
+                     'name_1': 'province_chania',
+                      'name_2': 'states_name'}, inplace=True)
+# Run the loop to return the percentage only for the refuges layer included in province_chania
+for i, row in join_refuges.iterrows(): #
+    join_refuges.loc[i, 'refuges_Pc'] = row['area_km2'] / row['area_km2_2'] * 100
+#print(join_refuges)
+
+
+# Rivers line layer
 rivers = rivers.drop(columns=['fid', 'objectid', 'eu_cd', 'name', 'altname2',
                               'altname3', 'region_cd', 'system', 'ins_when',
                               'ins_by', 'basin_cd', 'status_yr', 'modified',
@@ -359,43 +364,43 @@ rivers = rivers.drop(columns=['fid', 'objectid', 'eu_cd', 'name', 'altname2',
                               'av_width', 'av_depth', 'av_slope', 'riv_morph', 'discharge',
                               'val_morph', 'solids', 'acid_neut', 'substratum', 'chloride',
                               'a_temp_rge', 'av_a_temp', 'ppt', 'dist_sourc', 'cont'])
-
+# Rename the columns
 rivers = rivers.rename(columns={'altname1': 'name', 'shape_Leng': 'shape_length'})
-
-
+# For rivers looping the table and add the 'length'
 for i, row in rivers.iterrows():
     rivers.loc[i, 'length'] = row['geometry'].length
+# Re-order the columns
 rivers = rivers[['name', 'length', 'shape_length', 'geometry']]
+# Applying the function upper_name
 rivers_lower = rivers['name'].apply(upper_name)
+#print(rivers)
 #print(rivers_lower)
 
 
-# The length of the roads in metres as the crs is in metres
+# Roads layer
+# For roads looping the table in order to add the length of the roads in metres as the crs is in metres
 for i, row in roads.iterrows():
     roads.loc[i, 'length'] = row['geometry'].length
-
 # Classification of columns and determination of order of each column
 roads = roads[['type', 'length', 'geometry']]
-
-
 # The normalize=True setting the total percentage of each road in the area
 # The total values of the column 'type' to observe the different roads type of total roads of each category
 roads_percentages = roads['type'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'
 #print(roads_percentages)
+
+# Checking for total values
 roads_type = roads['type'].value_counts()
 #print(roads_type)
-
 
 # Calculate the total length in Kilometres for each category
 roads_sum = roads.groupby(['type'])['length'].sum() / 1000
 #print(roads_sum)
 
-
 # Join the province polygon layer with roads multi-linestring
 join_pro_roa = gpd.sjoin(provinces, roads, how='inner', op='intersects')
 #print(join_pro_roa)
 
-
+#
 provinces_roads_total = join_pro_roa.groupby(['name', 'type'])['length'].sum() / 1000
 #print(provinces_roads_total)
 
