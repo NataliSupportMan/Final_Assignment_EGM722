@@ -366,7 +366,7 @@ for i, row in rivers.iterrows():
 rivers = rivers[['name', 'length', 'shape_length', 'geometry']]
 # Applying the function upper_name
 rivers_lower = rivers['name'].apply(upper_name)
-print(rivers)
+#print(rivers)
 #print(rivers_lower)
 
 
@@ -393,7 +393,7 @@ roads_sum = roads.groupby(['type'])['length'].sum() / 1000
 join_pro_roa = gpd.sjoin(provinces, roads, how='inner', op='intersects')
 #print(join_pro_roa)
 
-#
+# Groupby process will split and combine the groups of data given
 provinces_roads_total = join_pro_roa.groupby(['name', 'type'])['length'].sum() / 1000
 #print(provinces_roads_total)
 
@@ -405,53 +405,42 @@ else:
     print('Not the same CRS')
 
 
-# Group by method
 # Join method and count the total percentage of each states in province
 provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # groupby  will split and group the data
 join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states
-for i, row in join_pro_sta.iterrows(): #
+for i, row in join_pro_sta.iterrows():
     join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
 #print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
 
 
 # Spatial Geo-processes
-# Intersection for the provinces layer 'Chania' with states layer
-intersection = gpd.overlay(provinces[provinces['name'] == 'Chania'], states, how='intersection')  # intersects the provinces 'Chania' with states
-for i, row in intersection.iterrows():
-    intersection.loc[i, 'Pc'] = row['area_km2_2'] / row['area_km2_1'] * 100
-#print(intersection)
-#intersection.plot(cmap='hsv', edgecolor='k')
-#plt.show()
-
-
 # The functions will return the individual states included in the province layer and the percentage of each individual state
-#print(province_chania())
-#print(province_rethymno())
-#print(province_iraklion())
-#print(province_lasithi())
+# Uncomment below on Buffer the plt.show() to observe the 7 different figures
 (province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
 (province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
 (province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
 (province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
-#plt.show()
+#print(province_chania())
+#print(province_rethymno())
+#print(province_iraklion())
+#print(province_lasithi())
 
 
 # Union and Centroid
-#union = gpd.overlay(provinces, states, how='union') # union method will unite the two layers and dissolve to one layer by a common column
+# Union method will unite the two layers and dissolve will return one layer by a common column
+#union = gpd.overlay(provinces, states, how='union')
 #union['common'] = 1
 #dissolve = union.dissolve(by='common')
-#centroid = union['geometry'].centroid #
-#fig1, ax1 = plt.subplots() #
-#centroid.plot(ax=ax1, color='none', edgecolor='k') #
-#dissolve.plot(ax=ax1, color='none', edgecolor='k')
-#union.plot(color='none', edgecolor='k')
-#plt.show()
-#print(centroid)
+#centroid = union['geometry'].centroid
+#fig1, ax1 = plt.subplots()
+#centroid.plot(ax=ax1, color='none', edgecolor='purple')
+#dissolve.plot(ax=ax1, color='none', edgecolor='cyan')
+#union.plot(color='none', edgecolor='orange')
 
 
 # Buffer
-#buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
-#buffer.plot(edgecolor='black')
+buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
+buffer.plot(edgecolor='k', color='blue')
 #plt.show()
 
 
