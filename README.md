@@ -24,13 +24,13 @@ Documentations can be found:
 
 ## 1. Installations and conda environment
 
-1.1 Getting started download 'Conda' on your local computer to set the environment.yml provided above . First [details here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and in the left side screen click 'Environments'. On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your ennvironment 
+1.1 Getting started download 'Conda' on your local computer to set the environment.yml provided above . First [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and in the left side screen click 'Environments'. On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your ennvironment 
 
-1.2 For the python code, the PyCharm IDE recommended and can be found [details here](https://www.jetbrains.com/pycharm/)
+1.2 For the python code, the PyCharm IDE recommended and can be found [click here](https://www.jetbrains.com/pycharm/)
 
-1.3 To get the GitHub Desktop for windows or mac [details here](https://desktop.github.com/)
+1.3 To get the GitHub Desktop for windows or mac [click here](https://desktop.github.com/)
 
-1.4 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [details here](https://contextily.readthedocs.io/en/latest/) 
+1.4 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [click here](https://contextily.readthedocs.io/en/latest/) 
 
 ## 2. Download or clone this repository
 
