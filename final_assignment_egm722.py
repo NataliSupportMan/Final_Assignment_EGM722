@@ -286,8 +286,8 @@ cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to r
                          'Agios Nikolaos': 'Agios nikolaos',
                          'Rethimno': 'Rethymno',
                          'Hania': 'Chania'})
-# If the above method do not worked you can uncomment the following to bring the same results, -
-# else just leave them under the comment
+# If the above method do not worked you can uncomment the following to bring the same results,
+# Else just leave them under the comment
 #cities.loc[0, 'name'] = 'Iraklion'
 #cities.loc[1, 'name'] = 'agios nikolaos'
 #cities.loc[2, 'name'] = 'rethymno'
