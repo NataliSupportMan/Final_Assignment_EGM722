@@ -38,4 +38,6 @@ You can download this repository after installations or to clone to your main co
 
 1.  Go up to 'green code arrow', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and double click the final_assignment_egm722.py to observe the code 
 
-2.  On the upper right window you will find the Fork button, click to create a fork this repository to your account. Once is done lanuch the GitHub Desktop and from 'File' select 'Clone a repository', got to URL and paste: ***gh repo clone NataliSupportMan/Final_Assignment_EGM722***
+2.  On the upper right window you will find the 'Fork' button, click to create a fork this repository to your account. Once is done lanuch the GitHub Desktop and from 'File' select 'Clone a repository', copy this URL: ***gh repo clone NataliSupportMan/Final_Assignment_EGM722***  and paste it to your github Desktop URL, choose the local path and final push the clone button.
+
+Overall the step 1 is recommended to observe this code but you can gor for option 2 and fork this repository to your account
