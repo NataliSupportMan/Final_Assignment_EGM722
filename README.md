@@ -34,6 +34,9 @@ Documentations can be found:
 
 ## 2. Download or clone this repository
 
-After installation clone this repository to your main computer following the steps
+You can download this repository after installations or to clone to your main computer following the steps
 
-    1. 
+    1.  Go to to 'green code arrow', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and 
+        double click the final_assignment_egm722.py to observe the code 
+
+    2.  Lanuch the GitHub Desktop and from 'File' select 'Clone a repository', got to URL and paster the 
