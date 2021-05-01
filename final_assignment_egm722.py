@@ -553,4 +553,4 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
 plt.show()
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
-#fig.savefig('map.png', bbox_inches='tight', dpi=300)
+fig.savefig('map.png', bbox_inches='tight', dpi=300)
