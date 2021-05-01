@@ -550,7 +550,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 #source=ctx.providers.CartoDB.Voyager
                 #source=ctx.providers.OpenStreetMap.Mapnik
                 )
-plt.show()
+#plt.show()
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
-fig.savefig('map.png', bbox_inches='tight', dpi=300)
+#fig.savefig('map.png', bbox_inches='tight', dpi=300)
