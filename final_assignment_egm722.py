@@ -416,10 +416,10 @@ for i, row in join_pro_sta.iterrows():
 # Spatial Geo-processes
 # The functions will return the individual states included in the province layer and the percentage of each individual state
 # Uncomment below on Buffer the plt.show() to observe the 7 different figures
-(province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
-(province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
-(province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
-(province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
+#(province_chania()).plot(cmap='hsv', edgecolor='black', linewidth=2)
+#(province_rethymno()).plot(cmap='hsv', edgecolor='blue', linewidth=2)
+#(province_iraklion()).plot(cmap='hsv', edgecolor='green', linewidth=2)
+#(province_lasithi()).plot(cmap='hsv', edgecolor='yellow', linewidth=2)
 #print(province_chania())
 #print(province_rethymno())
 #print(province_iraklion())
@@ -439,12 +439,12 @@ for i, row in join_pro_sta.iterrows():
 
 
 # Buffer
-buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
-buffer.plot(edgecolor='k', color='blue')
+#buffer = rivers['geometry'].buffer(distance=800) # buffing the river linestring for 800 metres
+#buffer.plot(edgecolor='k', color='blue')
 #plt.show()
 
 
-# For projected layers CRS added UniveralTrensverseMercator UTM coordinate system at 35
+# For projected layers CRS added universal transverse mercator UTM coordinate system at 35
 CRS = ccrs.UTM(35)
 fig, ax, = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection=CRS))
 gridlines = ax.gridlines(draw_labels=True,
@@ -454,7 +454,7 @@ gridlines.right_labels = False
 gridlines.bottom_labels = False
 
 
-# Plotting the individual shapefiles and overlapping ax=ax
+# Plotting the individual shapefiles and overlapping the plots ax=ax
 outline.plot(ax=ax, edgecolor='black', color='none', alpha=1)
 provinces.plot(ax=ax, edgecolor='black', color=color, alpha=1)
 cities.plot(ax=ax, edgecolor='black', markersize=100, color='magenta')
@@ -499,8 +499,13 @@ rivers_handle = ax.plot([], color='b', linewidth=2, label='Rivers')
 # Adding the name of cities on the map pulling the names from column 'name'
 for x_cities, y_cities, name in zip(
     cities.geometry.x, cities.geometry.y, cities.name):
-        ax.annotate(name, xy=(x_cities, y_cities), backgroundcolor="None", fontsize=12, horizontalalignment='center',
-                                                   verticalalignment='bottom')
+        ax.annotate(name, xy=(x_cities, y_cities),  backgroundcolor="None", fontsize=12, horizontalalignment='center',
+                                                    verticalalignment='bottom', ha="center",
+                                                    xytext=(85, 35), textcoords='offset points',
+                                                    bbox=dict(boxstyle="round4,pad=.5", fc="0.9"),
+                                                    arrowprops=dict(arrowstyle="->",
+                                                    connectionstyle="angle,angleA=0,angleB=80,rad=20")
+                                                    )
 
 
 # Calling the function 'capitalize_name' to update the lower case letter to initial capital letters while looping the name attirbute in province_names
@@ -520,7 +525,6 @@ plt.legend(handles, labels, title='Legend',
                             title_fontsize=12,
                             fontsize=10,
                             loc='upper right')
-
 
 # Calling a style 'bmh' for better visualisation
 plt.style.use('bmh')
@@ -546,9 +550,7 @@ ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 #source=ctx.providers.CartoDB.Voyager
                 #source=ctx.providers.OpenStreetMap.Mapnik
                 )
-
-#plt.show()
-
+plt.show()
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
 #fig.savefig('map.png', bbox_inches='tight', dpi=300)
