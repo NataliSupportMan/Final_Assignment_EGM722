@@ -22,7 +22,7 @@ Documentations can be found:
 *   Matplotlib [click here](https://matplotlib.org/stable/contents.html#)
 *   Contextily [click here](https://contextily.readthedocs.io/en/latest/intro_guide.html)
 
-## 1. Installations and conda environmentS
+## 1. Installations and conda environment
 
 1.1 Getting started download 'Conda' on your local computer to set the environment.yml provided above . First [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and in the left side screen click 'Environments'. On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your ennvironment 
 
