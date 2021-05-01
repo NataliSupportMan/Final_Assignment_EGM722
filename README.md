@@ -28,7 +28,7 @@ Documentations can be found:
 
 1.2 For the python code, the PyCharm IDE recommended and can be found [here](https://www.jetbrains.com/pycharm/)
 
-1.3 To get the GitHub Desktop [click here](https://desktop.github.com/)
+1.3 To get the GitHub Desktop for windows or mac please [click here](https://desktop.github.com/)
 
 1.4 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [click here](https://contextily.readthedocs.io/en/latest/) 
 
@@ -36,7 +36,6 @@ Documentations can be found:
 
 You can download this repository after installations or to clone to your main computer following the steps
 
-    1.  Go to to 'green code arrow', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and 
-        double click the final_assignment_egm722.py to observe the code 
+    1.  Go up to 'green code arrow', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and double click the final_assignment_egm722.py to observe the code 
 
-    2.  Lanuch the GitHub Desktop and from 'File' select 'Clone a repository', got to URL and paster the 
+    2.  On the upper right window you will find the Fork button, click to create a fork this repository to your account. Once is done lanuch the GitHub Desktop and from 'File' select 'Clone a repository', got to URL and paste: /*gh repo clone NataliSupportMan/Final_Assignment_EGM722*/
