@@ -39,6 +39,10 @@ Documentations can be found:
 
 1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame as a full table you need to run the debug option. First, left-click between the numbers (248) and the provinces_percentage as the image below and you will notice a red line across the row and a red dot. Then go upper right and next to run is the debug image, click on that and a new debugger console will open. You will notice some DataFrame, pick your data and right-click on it and select 'View as DataFrame ' and a new window will open to observe all the table.
 
+![cmd contextily](screenshots/image4.png)
+
+1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame as a full table you need to run the debug option. First, left-click between 248 row and the provinces_percentage as the image below and you will notice a red line across the row and a red dot. Then go upper right and next to run is the debug image, click on that and a new debugger console will open. You will notice some DataFrame, pick your data and right-click on it and select 'View as DataFrame ' and a new window will open to observe all the table
+
 ![Pycharm DataFrame](screenshots/image1.png)
 
 ## 2. Download or clone this repository
