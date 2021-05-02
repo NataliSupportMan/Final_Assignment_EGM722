@@ -37,7 +37,6 @@ Documentations can be found:
 
 1.5 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [click here](https://contextily.readthedocs.io/en/latest/) 
 
-
  ![cmd contextily](screenshots/image4.png)
 
 1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame as a full table you need to run the debug option. First, left-click between 248 row and the provinces_percentage as the image below and you will notice a red line across the row and a red dot. Then go upper right and next to run is the debug image, click on that and a new debugger console will open. You will notice some DataFrame, pick your data and right-click on it and select 'View as DataFrame ' and a new window will open to observe all the table
