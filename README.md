@@ -30,6 +30,8 @@ Documentations can be found:
 
 1.2 Another option is to run the command prompt from the anaconda navigator in order to get access to the anaconda environment. Navigate to cmd and type the following command:
  `(NataliSuportman) C:\Users\NataliSuportman> conda env create -f environment.yml`
+ 
+ ![cmd command](screenshots/image4.png)
 
 1.3 For the python code, the PyCharm IDE recommended and can be found [here](https://www.jetbrains.com/pycharm/)
 
