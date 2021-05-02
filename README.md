@@ -54,4 +54,7 @@ You can download this repository after installations or clone to your main compu
 
 2.  On the upper right window, you will find the 'Fork' button, click to create a fork this repository to your account. Once is done open the GitHub Desktop and from 'File' select 'Clone a repository', copy this URL: `gh repo clone NataliSupportMan/Final_Assignment_EGM722` and paste it to your GitHub Desktop URL, choose the local path and final push the clone button.                           
 
+
+![GitHub Desktop](screenshots/image6.png)
+
 Overall step 1 is recommended in order to observe and work with this code but you can go for option 2 and fork this repository to your account.
