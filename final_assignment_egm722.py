@@ -205,8 +205,9 @@ def nearest_values(row, other_gdf, point_column='geometry', value_column="geomet
     other_points = other_gdf["geometry"].unary_union
     # Find the nearest points
     nearest_geoms = nearest_points(row[point_column], other_points)
-    # Get corresponding values from the other df
+    # Get corresponding values from the other GeoDataFrames
     nearest_data = other_gdf.loc[other_gdf["geometry"] == nearest_geoms[1]]
+    # Get the values of the column
     nearest_value = nearest_data[value_column].values[0]
     return nearest_value
 
