@@ -263,7 +263,7 @@ mean_area = provinces['area_km2'].mean()
 #print("Sum area: {0} km2".format(provinces['area_km2'].sum()))
 
 
-# filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
+# Filters applying in order to print the attribute table with all the names of provinces except the 'rethymno' and 'chania'
 filt = (provinces['name'] == 'Rethymno') | (provinces['name'] == 'Chania')
 provinces_filt = provinces.loc[~ filt, 'name']
 #print(provinces_filt)
@@ -274,7 +274,7 @@ states = states.drop(columns=['KWD_YPES']) # The drop method will remove declare
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation
 states = states[['name', 'area_km2', 'geometry']]
-#rint(states.describe())
+#print(states.describe())
 #print(states)
 #states.plot(cmap="hsv")
 #plt.show()
@@ -303,7 +303,7 @@ airports = airports.replace({'Heraklion Airport': # Replace the values of the ro
                              'Iraklion Airport'})
 airports_upper = airports['name'].apply(capitalize_name) # Capitalize function
 airports_sum = airports.name.apply(unique_name) # Unique finction
-filt = airports['name'].str.contains('Sitia', na=False) # Str.contains will return if only the arguments is True
+filt = airports['name'].str.contains('Sitia', na=False) # Str.contains will return if only the arguments are True
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
 
