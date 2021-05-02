@@ -1,10 +1,10 @@
 # EGM722 Final Assingment Programming for GIS and Remote Sensing
 
-This is where you start
+This is where you start.
 
 ## Overview 
 
-The following code will provide various information about Crete island such as attribute tables, calculations, and map visualization 
+The following code will provide various information about Crete island such as attribute tables, calculations, and map visualization. 
 
 in features
 
@@ -24,7 +24,7 @@ Documentations can be found:
 
 ## 1. Installations and conda environment
 
-1.1 Getting started download 'Conda' on your local computer to set the `environment.yml` provided above. First, [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and on the left side screen click 'Environments'.  On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your environment 
+1.1 Getting started download 'Conda' on your local computer to set the `environment.yml` provided above. First, [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and on the left side screen click 'Environments'.  On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your environment. 
 
 ![Anaconda Navigator](screenshots/image2.png)
 
@@ -39,16 +39,16 @@ Documentations can be found:
 
 ![cmd contextily](screenshots/image4.png)
 
-1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame as a full table you need to run the debug option. First, left-click between number (248) row and the provinces_percentage as the image below and you will notice a red line across the row and a red dot. Then go upper right and next to run is the debug image, click on that and a new debugger console will open. You will notice various DataFrame, pick your data and right-click on it and select 'View as DataFrame ' and a new window will open to observe the table
+1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame as a full table you need to run the debug option. First, left-click between number and row, for example in the image below row 248 and the provinces_percentage was selected and you will notice a red line across the row generated and a red dot. Next, on the upper right next to run is the debug image, click on that and a new debugger console will open. You will notice various DataFrame, pick your data you want to observe and right-click on it and select 'View as DataFrame ' and a new window will open to observe the table.
 
 ![Pycharm DataFrame](screenshots/image1.png)
 
 ## 2. Download or clone this repository
 
-You can download this repository after installations or clone to your main computer following the steps
+You can download this repository after installations or clone to your main computer following the steps.
 
-1.  Go upper to green 'code', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and double click the final_assignment_egm722.py to observe the code 
+1.  Go upper to green 'code', open and select Download ZIP to your local computer. Once you have downloaded unzip the file and double click the final_assignment_egm722.py to observe the code. 
 
 2.  On the upper right window, you will find the 'Fork' button, click to create a fork this repository to your account. Once is done open the GitHub Desktop and from 'File' select 'Clone a repository', copy this URL: `gh repo clone NataliSupportMan/Final_Assignment_EGM722` and paste it to your GitHub Desktop URL, choose the local path and final push the clone button.                           
 
-Overall step 1 is recommended in order to observe and work with this code but you can go for option 2 and fork this repository to your account
+Overall step 1 is recommended in order to observe and work with this code but you can go for option 2 and fork this repository to your account.
