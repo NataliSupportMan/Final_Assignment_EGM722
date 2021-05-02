@@ -235,7 +235,7 @@ refuges = refuges.to_crs(epsg=32635)
 
 
 # Provinces polygons layer
-provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns 
+provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns
 provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
 provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
 provinces = provinces[['name', 'area_km2', 'population', 'geometry']]  # Add the columns in order
@@ -281,7 +281,7 @@ states = states[['name', 'area_km2', 'geometry']]
 
 
 # Cities points layer,
-cities = cities.drop(columns=['fid', 'ONOMA']) # Using the drop method to remove columns as they containing information in greek language.
+cities = cities.drop(columns=['fid', 'ONOMA']) # Using the drop method to remove columns as they containing information in Greek language.
 cities.rename(columns={'NAME': 'name'},  inplace=True) # Set the capital NAME to lower case
 cities = cities.replace({'Hrakleio': 'Iraklion', # Using the replace method to replace the names
                          'Agios Nikolaos': 'Agios nikolaos',
@@ -302,7 +302,7 @@ airports.rename(columns={'Name': 'name'},  inplace=True) # Rename the columns
 airports = airports.replace({'Heraklion Airport': # Replace the values of the rows
                              'Iraklion Airport'})
 airports_upper = airports['name'].apply(capitalize_name) # Capitalize function
-airports_sum = airports.name.apply(unique_name) # Unique finction
+airports_sum = airports.name.apply(unique_name) # Unique function
 filt = airports['name'].str.contains('Sitia', na=False) # Str.contains will return if only the arguments are True
 #print(airports.loc[filt, 'name'])
 #print(airports_upper)
@@ -411,7 +411,7 @@ provinces_sum = provinces.groupby(['name', 'population'])['area_km2'].sum() # gr
 join_pro_sta = gpd.sjoin(states, provinces,  how='left', op='intersects') # join will transfer the attribute table from provinces to states
 for i, row in join_pro_sta.iterrows():
     join_pro_sta.loc[i, 'Pc'] = row['area_km2_left'] / row['area_km2_right'] * 100
-#print(join_pro_sta) # You will notice double series and in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
+#print(join_pro_sta) # You will notice double series in the first three rows the name 'agios vasilios' assigned up 3 times. The results occurred by overlapping
 
 
 # Spatial Geo-processes
@@ -467,7 +467,7 @@ rivers.plot(ax=ax, color='b', alpha=1)
 plt.title('This is the map of Crete', fontsize=16)
 
 
-# Checking the unique names and the len of the province attribute
+# Checking the unique names and the len of the provinces attribute
 num_provinces = len(provinces.name.apply(unique_name))
 #print('Number of unique features: {}'.format(num_provinces))
 
