@@ -29,7 +29,7 @@ Documentations can be found:
 1.2 Another option is to run the command prompt from the anaconda navigator in order to get access to the anaconda environment. Navigate to cmd and type the following command:
  `(NataliSuportman) C:\Users\NataliSuportman> conda env create -f environment.yml`
 
-1.3 For the python code, the PyCharm IDE recommended and can be found [click here](https://www.jetbrains.com/pycharm/)
+1.3 For the python code, the PyCharm IDE recommended and can be found [here](https://www.jetbrains.com/pycharm/)
 
 1.4 To get the GitHub Desktop for windows or mac [click here](https://desktop.github.com/)
 
