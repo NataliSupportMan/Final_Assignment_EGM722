@@ -273,7 +273,7 @@ states = states.drop(columns=['KWD_YPES']) # The drop method will remove declare
 states['area_km2'] = states.area / 1000000 # The area method will append a new column 'area_km2' in meters and divided it by 1000000 will bring back km2
 states.rename(columns={'NAME': 'name'}, inplace=True) # Rename method to change the elements designation
 states = states[['name', 'area_km2', 'geometry']]
-#print(states.describe())
+#rint(states.describe())
 #print(states)
 #states.plot(cmap="hsv")
 #plt.show()
@@ -342,7 +342,7 @@ join_refuges.rename(columns={'name': 'refuges_name',
                      'name_1': 'province_chania',
                       'name_2': 'states_name'}, inplace=True)
 # Run the loop to return the percentage only for the refuges layer included in province_chania
-for i, row in join_refuges.iterrows(): #
+for i, row in join_refuges.iterrows():
     join_refuges.loc[i, 'refuges_Pc'] = row['area_km2'] / row['area_km2_2'] * 100
 #print(join_refuges)
 #print(refuges)
@@ -466,8 +466,8 @@ rivers.plot(ax=ax, color='b', alpha=1)
 plt.title('This is the map of Crete', fontsize=16)
 
 
-# Checking the unique names of the province attribute
-num_provinces = list(provinces.name.apply(unique_name))
+# Checking the unique names and the len of the province attribute
+num_provinces = len(provinces.name.apply(unique_name))
 #print('Number of unique features: {}'.format(num_provinces))
 
 
@@ -544,12 +544,13 @@ scale_bar(ax, 20)
 # 3) Option, type the following on cmd "pip3 install contextily==1.0rc2" and hopefully you have install the contextily package now
 # The watercolor added as main basemap as Crete is an island but 4 more basemaps added if you want to observe different basemaps
 # Just commend the Watercolor and uncomment the next basemap
-ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
+# Uncomment the following code
+#ctx.add_basemap(ax=ax, crs='epsg:32635',  source=ctx.providers.Stamen.Watercolor
                 #source=ctx.providers.OpenTopoMap
                 #source=ctx.providers.Stamen.TerrainBackground
                 #source=ctx.providers.CartoDB.Voyager
-                #source=ctx.providers.OpenStreetMap.Mapnik
-                )
+                #source=ctx.providers.OpenStreetMap.Mapnik )
+
 #plt.show()
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
