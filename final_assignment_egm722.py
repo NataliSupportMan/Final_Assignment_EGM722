@@ -552,7 +552,10 @@ scale_bar(ax, 20)
                 #source=ctx.providers.CartoDB.Voyager
                 #source=ctx.providers.OpenStreetMap.Mapnik )
 
+
+# Uncomment the plt.show to observe the final map of Crete
 #plt.show()
+
 
 #Uncomment the following line of code in order to save the image to your local folder same with your py
 #fig.savefig('map.png', bbox_inches='tight', dpi=300)
