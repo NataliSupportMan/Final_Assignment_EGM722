@@ -235,7 +235,7 @@ refuges = refuges.to_crs(epsg=32635)
 
 
 # Provinces polygons layer
-provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns from attribute table
+provinces = provinces.drop(columns=['gid', 'parent', 'esye_id', 'name_gr', 'center', 'shape_leng', 'shape_area']) # Drop method will drop off the no needed columns 
 provinces['area_km2'] = provinces.area / 1000000  # Provinces adding a new column and bring back Square Kilometres
 provinces.rename(columns={'name_eng': 'name', 'pop': 'population'}, inplace=True)  # Rename column the columns
 provinces = provinces[['name', 'area_km2', 'population', 'geometry']]  # Add the columns in order
