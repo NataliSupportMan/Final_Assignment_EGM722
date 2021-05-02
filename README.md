@@ -24,7 +24,7 @@ Documentations can be found:
 
 ## 1. Installations and conda environment
 
-1.1 Getting started download 'Conda' on your local computer to set the `environment.yml` provided above. First, [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and on the left side screen click 'Environments'.  On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your environment
+1.1 Getting started download 'Conda' on your local computer to set the `environment.yml` provided above. First, [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and on the left side screen click 'Environments'.  On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your environment ![Alt text](E:\GIS\GIS_Practicals\GIS_Course EGM722 Practicals\GitHub)
 
 1.2 Another option is to run the command prompt from the anaconda navigator in order to get access to the anaconda environment. Navigate to cmd and type the following command:
  `(NataliSuportman) C:\Users\NataliSuportman> conda env create -f environment.yml`
@@ -34,6 +34,8 @@ Documentations can be found:
 1.4 To get the GitHub Desktop for windows or mac [click here](https://desktop.github.com/)
 
 1.5 For contextily package launch anaconda environment and run the cmd to your environment base. Type "conda install contextily" or "conda install –c conda-forge contextily" . For running issues such as channel not installed, type a new command "conda config –appened channels conda-forge" and try again "conda install contextily. Final option type "contextily==1.0rc2 ". For cotextily dependecies [click here](https://contextily.readthedocs.io/en/latest/) 
+
+1.6 If you are unfamiliar with PyCharm and you want to observe each DataFrame 
 
 ## 2. Download or clone this repository
 
