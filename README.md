@@ -27,7 +27,7 @@ Documentations can be found:
 1.1 Getting started download 'Conda' on your local computer to set the environment.yml provided above. First, [click here](https://docs.anaconda.com/anaconda/install/) to download the 'anaconda' and while you have done the installation open 'anaconda navigator' and on the left side screen click 'Environments'.  On the bottom-left of your screen click the 'import' and add a 'Name' and for 'Specification File' add the environment.yml which have been provided and click import. While is done more than 160 packages should be added to your environment
 
 1.2 Another option is to run the command prompt from the anaconda navigator in order to get access to the anaconda environment. Navigate to cmd and type the following command:
-        ***(NataliSuportman) C:\Users\NataliSuportman> conda env create -f environmnt.yml***
+        ***(NataliSuportman) C:\Users\NataliSuportman> conda env create -f environment.yml***
 
 1.3 For the python code, the PyCharm IDE recommended and can be found [click here](https://www.jetbrains.com/pycharm/)
 
